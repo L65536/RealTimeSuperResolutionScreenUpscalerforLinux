@@ -28,7 +28,7 @@ An alternative screen capture approach is required.
 - [BUG] wrong display coordinate if the target window is too large (eg desktop or taskbar)
 
 # Acknowledgement and special thanks
-V1 of this project contains codes based on the following projects/libraries:
+This project contains codes based on the following projects/libraries:
 - https://github.com/Blinue/Magpie
 - https://github.com/funnyplanter/CuNNy
 - https://github.com/rdeioris/compushady
