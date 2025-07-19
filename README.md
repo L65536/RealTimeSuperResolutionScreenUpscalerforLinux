@@ -9,7 +9,7 @@ Other similar software projects include Magpie and Lossless Scaling.
 This project uses the HLSL shader files taken straight from the Magpie/CuNNy project.
 A fast CNN model called CuNNy-veryfast-NVL is used (It's Similar to Anime4k).
 This model provides good balance of text and grpachic upscaling quality and speed.
-V0.1 of this project contains around 200 lines of Python codes.
+Core of this project contains around 200 lines of Python codes plus external HLSL shader files.
 
 # Ver 0.1 Functionalities
 - X2 upscaling of any runing window to a seperate window in Linux.
@@ -17,8 +17,8 @@ V0.1 of this project contains around 200 lines of Python codes.
 
 # Ver 0.1 Limitations
 - No input passthrough support (need to run the original window side by side or with multi monitor setup).
-- No full screen support yet.
-- Does not handle minimized windows. (plain blue thumbnail is shown)
+- Fixed X2 magnification. No full screen support yet.
+- Does not handle minimized windows. (Plain blue thumbnail is shown)
 - Slow FPS for large target window sizes. 
 Current background screen capture speed and overhead are magnitude slower than the core shader computations by GPUs.
 An alternative screen capture approach is required.
