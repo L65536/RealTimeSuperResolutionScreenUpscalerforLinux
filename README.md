@@ -20,9 +20,9 @@ Core of this project contains around 200 lines of Python codes plus external HLS
 - Fixed X2 magnification. No full screen support yet.
 - Does not handle minimized windows. (Plain blue thumbnail is shown)
 - Slow FPS for large target window sizes. 
-Current background screen capture speed and overhead are magnitude slower than the core shader computations by GPUs.
-An alternative screen capture approach is required.
-- [BUG] Wrong display coordinates if the target window is too large (eg. desktop or taskbar)
+Current background screen capture and display function overhead are magnitude slower than the core shader computations by GPUs.
+Alternative screen capture and display acceleration approaches are required.
+- [BUG] Wrong display coordinates if the target window is too large (eg. desktop or taskbar at full screen width)
 
 # Acknowledgement and special thanks
 This project contains codes based on the following projects/libraries:
