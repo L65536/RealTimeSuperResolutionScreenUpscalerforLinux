@@ -1,6 +1,7 @@
 # Todo
-- [Windows] capture support.
-- [Linux] look into other capture and display methods for speed up tips.
+- Use pygame(SDL) for GUI and display.
+- [Windows] capture support using win32gui.
+- [Linux] look into alternative capture and display methods for speed up tips.
 - [Models] implement/integrate other AI models.
 
 # History
@@ -18,3 +19,6 @@
 - [GUI/Usability] return to main menu, refresh.
 - [GUI/Usability] main menu, check if capture success and skip minimized target window.
 - [GUI] OSD displays seperate times for capture/compute/display
+
+## v0.1 rev ...
+- Use pygame(SDL) for GUI and display
