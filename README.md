@@ -24,11 +24,12 @@ Current background screen capture and display function overhead are magnitude sl
 Alternative screen capture and display acceleration approaches are required.
 - [BUG] Wrong display coordinates if the target window is too large (eg. desktop or taskbar at full screen width)
 
-# Ver 0.2 (Windows) (Linux WIP testing)
+# Ver 0.2 (Windows and Linux) WIP testing
 - [Windows] New Windows branch. The main python GUI script is now cross-platform.
 - [Windows] Capture support using win32gui.
-- Use pygame(SDL) for GUI and display, instead of tkinter.
-- Full screen support. [ESC] or [Space] key to exit.
+- [Windows/Linux] Use pygame(SDL) for GUI and display, instead of tkinter.
+- [Windows/Linux] Full screen support with mid mouse button. [ESC] or [Space] key to exit.
+- [BUG] frame freeze and very slow updates. Under investigation...
  
 # Acknowledgement and special thanks
 This project contains codes based on the following projects/libraries:
