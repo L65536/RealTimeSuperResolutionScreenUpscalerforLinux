@@ -24,6 +24,11 @@ Current background screen capture and display function overhead are magnitude sl
 Alternative screen capture and display acceleration approaches are required.
 - [BUG] Wrong display coordinates if the target window is too large (eg. desktop or taskbar at full screen width)
 
+# Ver 0.2 (Windows only) (Linux WIP)
+- [Windows] New Windows branch.
+- [Windows] Capture support using win32gui.
+- Use pygame(SDL) for GUI and display, instead of tkinter.
+- 
 # Acknowledgement and special thanks
 This project contains codes based on the following projects/libraries:
 - https://github.com/Blinue/Magpie
