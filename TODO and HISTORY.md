@@ -1,5 +1,5 @@
 # Todo
-- [Linux] Use pygame for Linux branch as well. WIP testing...
+- Fix frame freezing and pacing problems in v0.2 rev g8.
 - [Windows/Linux] look into alternative capture and display methods for speed up tips.
 - [Models] implement/integrate other AI models.
 
@@ -22,4 +22,10 @@
 ## v0.2 rev g2 (Windows only) (Linux WIP)
 - [Windows] New Windows branch.
 - [Windows] Capture support using win32gui.
-- Use pygame(SDL) for GUI and display, instead of tkinter.
+- [Windows] Use pygame(SDL) for GUI and display, instead of tkinter.
+
+## v0.2 rev g8 (Windows and Linux) WIP testing...
+- [Linux] Use pygame for Linux branch as well. 
+- [Linux] [BUG] black thumbnails when capturing in BGRA. While RGBX modeshows all icons in Linux but incorrect color, BGRX not available in pygame.
+- [Linux] [BUG] Severe frame freeze, causes under invetigation.
+- [Windows] frame pacing very insistant, looks to be slower than measured frame times. Moving mouse seems to increase frame updates???
