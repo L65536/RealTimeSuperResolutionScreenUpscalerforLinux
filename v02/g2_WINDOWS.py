@@ -238,8 +238,7 @@ def capture_windows_release():
 def capture_upscale_display_windows():
     if True: #try:
         ###############################################################################################################
-        time_capture = time.perf_counter()
-        capture_windows()
+        time_capture = time.perf_counter()    
         buffer,width,height = capture_windows()
         # print("captured",width,height)
         # surface = pygame.image.frombuffer(buffer, (width,height), "BGRA")
