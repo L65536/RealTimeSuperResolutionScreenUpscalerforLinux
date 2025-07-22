@@ -1,6 +1,6 @@
 # Todo
-- [Linux] Use pygame for Linux branch as well.
-- [Linux] look into alternative capture and display methods for speed up tips.
+- [Linux] Use pygame for Linux branch as well. WIP testing...
+- [Windows/Linux] look into alternative capture and display methods for speed up tips.
 - [Models] implement/integrate other AI models.
 
 # History
