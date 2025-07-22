@@ -19,28 +19,30 @@ def enumerate_window_property(): # enum window ID width height title into window
             if 'RTSR' in title: continue # skip self
             if 'Desktop' in title: continue # skip
             if 'panel' in title: continue # skip
-            if DEBUG: print(f"{windowID} ({geometry.width:<4} x {geometry.height:<4}) {title}")
+            # if DEBUG: 
+            print(f"{windowID} ({geometry.width:<4} x {geometry.height:<4}) {title}")
             windows.append({"id":windowID, "width":geometry.width, "height":geometry.height, "title":title, "accessible": 0})
     finally:
         disp.close()
         
     return windows    
 
-def capture_init(hwnd): # create capture handles only once
+def init(hwnd): # create capture handles only once
     # global WIN_HANDLES
     # WIN_HANDLES = (hwnd, hwnd_dc, mfc_dc, save_dc, bitmap)
     
     disp = Xlib.display.Display() # MOVE INIT OUTSIDE LOOP
-    window = disp.create_resource_object('window', winID)
+    window = disp.create_resource_object('window', hwnd)
     geometry = window.get_geometry() # geometry.width geometry.height # need to re-init shader if dimension changes
     width, height = geometry.width, geometry.height
     # height = winH
     # width = winW       
     return (disp, window, width, height)
                 
-def capture():
+def get(WIN_HANDLES):
     # global WIN_HANDLES
     # (hwnd, hwnd_dc, mfc_dc, save_dc, bitmap) = WIN_HANDLES
+    global pixmap
     (disp, window, width, height) = WIN_HANDLES
     
     pixmap = window.get_image(0, 0, width, height, X.ZPixmap, 0xffffffff) # will fail if minimized # DEBUG print(len(pixmap.data))
@@ -50,9 +52,9 @@ def capture():
     return pixmap.data, width, height
     # return bmpstr, bmpinfo["bmWidth"], bmpinfo["bmHeight"] # Windows
 
-def capture_release(WIN_HANDLES):
+def release(WIN_HANDLES):
     # global WIN_HANDLES
     # (hwnd, hwnd_dc, mfc_dc, save_dc, bitmap) = WIN_HANDLES
     (disp, window, width, height) = WIN_HANDLES
     disp.close()    
-    window.close() # ???
+    
