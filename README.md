@@ -12,7 +12,7 @@ This model provides good balance of text and graphic upscaling quality and speed
 Core of this project contains around 300 lines of Python codes plus external HLSL shader files.
 
 # Version History
-## v0.0 for Windows and Linux
+## Ver 0.0 for Windows and Linux
 - Read single image from file, upscale with SRCNN(Magpie HLSL), display.
 - Batch image converter.
 
@@ -41,7 +41,8 @@ Alternative screen capture and display acceleration approaches are required.
 # Todo
 - [Models] Implement/integrate other AI models with pytorch.
 - [Windows/Linux] Look into alternative capture and display methods for speed up tips.
-- Cascade with other resizing shaders for support of random zoom ratio. 
+- [SHADER] Cascade with other resizing shaders for support of random zoom ratio.
+- [GUI] Input passthrough to target app window.
 
 # Acknowledgement and Special Thanks
 This project contains codes based on the following projects/libraries:
