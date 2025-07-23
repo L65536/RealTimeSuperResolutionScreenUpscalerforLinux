@@ -1,7 +1,6 @@
 # Todo
-- Fix frame freezing and pacing problems in v0.2 rev g8.
 - [Windows/Linux] look into alternative capture and display methods for speed up tips.
-- [Models] implement/integrate other AI models.
+- [Models] implement/integrate other AI models with pytorch.
 
 # History
 ## v0.0 Windows/Linux
@@ -27,5 +26,6 @@
 ## v0.2 rev g8 (Windows and Linux) WIP testing...
 - [Linux] Use pygame for Linux branch as well. 
 - [Linux] [BUG] black thumbnails when capturing in BGRA. While RGBX modeshows all icons in Linux but incorrect color, BGRX not available in pygame.
-- [Linux] [BUG] Severe frame freeze, causes under invetigation.
-- [Windows] frame pacing very insistant, looks to be slower than measured frame times. Moving mouse seems to increase frame updates???
+- <del>[Linux] [BUG] Severe frame freeze, causes under invetigation.</del>
+- <del>[Windows] frame pacing very insistant, looks to be slower than measured frame times. Moving mouse seems to increase frame updates???</del>
+  Fixing frame freezing and pacing problems in v0.2 rev g9.
