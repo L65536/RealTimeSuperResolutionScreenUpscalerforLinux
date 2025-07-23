@@ -29,7 +29,6 @@ Alternative screen capture and display acceleration approaches are required.
 - [Windows] Capture support using win32gui.
 - [Windows/Linux] Use pygame(SDL) for GUI and display, instead of tkinter.
 - [Windows/Linux] Full screen support with mid mouse button. [ESC] or [Space] key to exit.
-- [BUG] frame freeze and very slow updates. Under investigation...
  
 # Acknowledgement and special thanks
 This project contains codes based on the following projects/libraries:
