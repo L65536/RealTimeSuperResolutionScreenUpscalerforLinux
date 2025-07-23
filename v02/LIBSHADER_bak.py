@@ -30,18 +30,35 @@ s2 = hlsl.compile(shader2)
 s3 = hlsl.compile(shader3)
 s4 = hlsl.compile(shader4)
 
-def init_buffer(width, height):
+def init_buffer(winW,winH):
     global staging_buffer, readback_buffer
     global INPUT, OUTPUT, T0, T1, T2, T3, CB1, CB2, CB3, CB4    
-        
+    BLOCK_SIZE = 64 # trim to block size, capture in this solution too
+    height = winH
+    width = winW
+    # winW = (width-BLOCK_SIZE+1)//BLOCK_SIZE*BLOCK_SIZE
+    # winH = (height-BLOCK_SIZE+1)//BLOCK_SIZE*BLOCK_SIZE
+    # print("Trimmed",width,height,"to", winW,winH)
+
     INPUT = Texture2D(width, height, R8G8B8A8_UNORM)
     OUTPUT = Texture2D(width*2, height*2, R8G8B8A8_UNORM)
     staging_buffer = Buffer(INPUT.size, HEAP_UPLOAD)
-    # readback_buffer = Buffer(OUTPUT.size, HEAP_READBACK) # wrong size
-    readback_buffer = Buffer((OUTPUT.size+OUTPUT.row_pitch-1)//OUTPUT.row_pitch*OUTPUT.row_pitch, HEAP_READBACK) 
-    # Adjust buffer size to match the correct row_pitch, otherwise size of last line mismatch
-    # print(f"{OUTPUT.width}/{OUTPUT.row_pitch//4}x{OUTPUT.height}={OUTPUT.row_pitch*OUTPUT.height}/{OUTPUT.size}")
-
+    readback_buffer = Buffer((OUTPUT.size+OUTPUT.row_pitch-1)//OUTPUT.row_pitch*OUTPUT.row_pitch, HEAP_READBACK) # adjust buffer size to correct row_pitch, otherwise size of last line mismatch
+    print(f"{OUTPUT.width}/{OUTPUT.row_pitch//4}x{OUTPUT.height}={OUTPUT.row_pitch*OUTPUT.height}/{OUTPUT.size}")
+    """
+    print(f"Shader buffer OUT:{width*2}x{height*2}x4={width*2*height*2*4} {OUTPUT.size} allocated.")
+    print(f"Shader buffer IN:{width}x{height}x4={width*height*4} {INPUT.size} allocated.")    
+    for block in range(1,65):        
+        w = (width+block-1)//block*block
+        h = (height+block-1)//block*block
+        # if INPUT.size == (w*h*4): 
+        print(f"Shader input blocksize={block},new WxH=({w}x{h}) buffer={w*h*4} diff={INPUT.size - (w*h*4)}")      
+            
+        w = (width*2+block-1)//block*block
+        h = (height*2+block-1)//block*block            
+        # if OUTPUT.size == (w*h*4): 
+        print(f"Shader output blocksize={block},new WxH=({w}x{h}) buffer={w*h*4} diff={OUTPUT.size - (w*h*4)}")      
+    """
     T0 = Texture2D(width, height, R8G8B8A8_UNORM)
     T1 = Texture2D(width, height, R8G8B8A8_UNORM)
     T2 = Texture2D(width, height, R8G8B8A8_UNORM)
@@ -56,7 +73,7 @@ def init_buffer(width, height):
     CB4.upload(struct.pack('iiiiffffff', width, height, width*2, height*2, 1.0/width, 1.0/height, 1.0/width/2, 1.0/height/2, 2.0, 2.0))
 
 def shadercompute(buffer, width, height):
-    #staging_buffer.upload(buffer) # incorrect row_pitch
+    #staging_buffer.upload(buffer)
     staging_buffer.upload2d(buffer, INPUT.row_pitch, INPUT.width, INPUT.height, get_pixel_size(R8G8B8A8_UNORM))
     staging_buffer.copy_to(INPUT)
     compute1 = Compute(s1, cbv=[CB1], srv=[INPUT], uav=[T0,T1], samplers=[SP,SL])

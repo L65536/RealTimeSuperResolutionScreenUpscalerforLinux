@@ -65,9 +65,12 @@ def get(WIN_HANDLES):
     
 def release(WIN_HANDLES):
     # global WIN_HANDLES
-    (hwnd, hwnd_dc, mfc_dc, save_dc, bitmap) = WIN_HANDLES
-    win32gui.DeleteObject(bitmap.GetHandle())
-    save_dc.DeleteDC()
-    mfc_dc.DeleteDC()
-    win32gui.ReleaseDC(hwnd, hwnd_dc)
-    WIN_HANDLES = None    
+    try: 
+        (hwnd, hwnd_dc, mfc_dc, save_dc, bitmap) = WIN_HANDLES    
+        win32gui.DeleteObject(bitmap.GetHandle())
+        save_dc.DeleteDC()
+        mfc_dc.DeleteDC()
+        win32gui.ReleaseDC(hwnd, hwnd_dc)
+        WIN_HANDLES = None    
+    except:
+        pass    

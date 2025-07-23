@@ -40,8 +40,7 @@ def init(hwnd): # create capture handles only once
     return (disp, window, width, height)
                 
 def get(WIN_HANDLES):
-    # global WIN_HANDLES
-    # (hwnd, hwnd_dc, mfc_dc, save_dc, bitmap) = WIN_HANDLES
+    # global WIN_HANDLES    
     global pixmap
     (disp, window, width, height) = WIN_HANDLES
     
@@ -53,8 +52,10 @@ def get(WIN_HANDLES):
     # return bmpstr, bmpinfo["bmWidth"], bmpinfo["bmHeight"] # Windows
 
 def release(WIN_HANDLES):
-    # global WIN_HANDLES
-    # (hwnd, hwnd_dc, mfc_dc, save_dc, bitmap) = WIN_HANDLES
-    (disp, window, width, height) = WIN_HANDLES
-    disp.close()    
+    # global WIN_HANDLES       
+    try:   
+        (disp, window, width, height) = WIN_HANDLES
+        disp.close()    
+    except:
+        pass
     

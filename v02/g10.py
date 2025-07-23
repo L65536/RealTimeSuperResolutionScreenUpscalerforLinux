@@ -1,10 +1,6 @@
 # Known issues:
-# [] Works with certain window resolution only. eg. 3840x 1920x 1280x but errors with random resolution => trim or pad to block size (too heavy to implement in python)
-# [Windows] Capturing causes the original window and captured images flickering??? try different parameter or new capture method
-
-# [] return to menu from continous mode failed without error => check command log
-# [Windows] very slow frame updates? [fixed]
-# [Linux] freezed frames?  [fixed]test[]
+# [Windows] Flickering when capturing, both original and captured. Try different parameter or new capture method.
+# [Linux] Menu icon appears to be blank(BGRA mode) or color inversed(RGBX).
 
 # Requirements: pip install compushady pillow numpy pygame
 # Requirements: [Linux] pip install xlib
@@ -54,12 +50,12 @@ def make_thumbnail_tile(i, tile_size):
     global winH, winW
     image = None
     FONT_SIZE = 70*tile_size//600
-    win_id = windows[i]["id"]
+    id = windows[i]["id"]
     winH = windows[i]["height"]
     winW = windows[i]["width"]
 
     try: # capture crop and pad to thumbnail tile size            
-        cap = CAP.init(win_id)        
+        cap = CAP.init(id)        
         buffer, width, height = CAP.get(cap) # DEBUG
         # print("DEBUG captured", win_id,width,height,len(buffer),width*height*4)
         if os.name == 'nt':        
@@ -92,18 +88,16 @@ def make_thumbnail_tile(i, tile_size):
     return image
 
 def capture_upscale_display(cap):
-    if True: # try:            
+    try:            
         time_capture = time.perf_counter()
         buffer,width,height = CAP.get(cap) # DEBUG print("Captured",width,height)            
         time_shader = time.perf_counter() # process_time() is for CPU ONLY
         SHADER.shadercompute(buffer,winW,winH)        
         time_postp = time.perf_counter()                
         surface = pygame.image.frombuffer(SHADER.readback_buffer.readback(), (SHADER.OUTPUT.row_pitch//4, SHADER.OUTPUT.height), "BGRA") # Windows and Linux                           
-    if False: # except:
+    except:
         print(f"[ERROR] Capture or conversion failed on [{winID}]:{winW}x{winH} to {winW*2}x{winH*2}. Row pitch = {SHADER.OUTPUT.row_pitch//4}x4")                    
-        print(f"[ERROR] Buffer conversion expect {SHADER.OUTPUT.row_pitch//4}x{SHADER.OUTPUT.height}x4={SHADER.OUTPUT.row_pitch*SHADER.OUTPUT.height} {SHADER.OUTPUT.size}. Got {len(SHADER.readback_buffer.readback())}")
-        print("[ERROR] Currently limited support on target window size. Need to work with SHADER.OUTPUT.row_pitch\n")            
-        # TODO: try adjust receiving buffer WxH, then surface = surface.subsurface((0,0,tile_size,tile_size)) or need to pad/trim input frame
+        print(f"[ERROR] Buffer conversion expect {SHADER.OUTPUT.row_pitch//4}x{SHADER.OUTPUT.height}x4={SHADER.OUTPUT.row_pitch*SHADER.OUTPUT.height} {SHADER.OUTPUT.size}. Got {len(SHADER.readback_buffer.readback())}")                
         CAP.release(cap)                    
         start_menu() # go back to menu
         return
@@ -181,22 +175,3 @@ while running:
     pygame.display.flip()
     clock.tick(60)  # limits FPS to 30/60
 pygame.quit()
-
-"""
-        # print(readback_buffer.readback())
-        # print(type(readback_buffer.readback()))
-        # w=((OUTPUT.width+15)//16)*16
-        # h=((OUTPUT.height+15)//16)*16
-        # print(len(readback_buffer.readback()),h*w*4,w,h)
-
-    start_time = time.perf_counter()
-    buffer,width,height = capture_windows(786802,0)
-    surface = pygame.image.frombuffer(buffer, (width,height), "BGRA")
-    end_time = time.perf_counter()
-    elapsed_time = end_time - start_time
-    print(elapsed_time)
-
-    # display.blit(surface, (0, 0))
-    # display.blit(text, (0,0))
-    # text = font.render('Test', False, (255, 0, 0),(0, 0, 0))
-"""
