@@ -1,8 +1,10 @@
 # Known issues:
-# Works with certain window resolution only. eg. 3840x 1920x 1280x but errors with random resolution => trim or pad to block size (too heavy to implement in python)
+# [] Works with certain window resolution only. eg. 3840x 1920x 1280x but errors with random resolution => trim or pad to block size (too heavy to implement in python)
 # [Windows] Capturing causes the original window and captured images flickering??? try different parameter or new capture method
-# [Windows] very slow frame updates?
-# [Linux] freezed frames?
+
+# [] return to menu from continous mode failed without error => check command log
+# [Windows] very slow frame updates? [fixed]
+# [Linux] freezed frames?  [fixed]test[]
 
 # Requirements: pip install compushady pillow numpy pygame
 # Requirements: [Linux] pip install xlib
@@ -34,8 +36,10 @@ winW = 0 # target window width
 menu_select_mode = 1 # menu mode, run once flag
 
 def start_menu():
+    global menu_select_mode
     global tile_size   
     global windows
+    menu_select_mode = 1
     windows = CAP.enumerate_window_property()
         
     row = len(windows) # number of active windows
@@ -88,39 +92,30 @@ def make_thumbnail_tile(i, tile_size):
     return image
 
 def capture_upscale_display(cap):
-    if True: #try:        
+    try:            
         time_capture = time.perf_counter()
-        try:
-            buffer,width,height = CAP.get(cap) # DEBUG print("Captured",width,height)
-        except: 
-            print(f"[ERROR] Capture failed on [{winID}:{winW}x{winH}].")            
-            menu_select_mode = 1
-            CAP.release(cap)                    
-            start_menu() # Refresh
-            return
-            
+        buffer,width,height = CAP.get(cap) # DEBUG print("Captured",width,height)            
         time_shader = time.perf_counter() # process_time() is for CPU ONLY
         SHADER.shadercompute(buffer,winW,winH)        
-        time_postp = time.perf_counter()
+        time_postp = time.perf_counter()                
+        surface = pygame.image.frombuffer(SHADER.readback_buffer.readback(), (SHADER.OUTPUT.width, SHADER.OUTPUT.height), "BGRA") # Windows and Linux               
+    except:
+        print(f"[ERROR] Capture or conversion failed on [{winID}]:{winW}x{winH} to {winW*2}x{winH*2}.")                    
+        #print(f"[ERROR] Buffer conversion expect {SHADER.OUTPUT.width}x{SHADER.OUTPUT.height}x4={SHADER.OUTPUT.width*SHADER.OUTPUT.height*4} {SHADER.OUTPUT.size}. Got {len(SHADER.readback_buffer.readback())}")
+        print("[ERROR] Currently limited support on target window size. Need to fit into block size of 8/16/64 ???\n")            
+        # TODO: try adjust receiving buffer WxH, then surface = surface.subsurface((0,0,tile_size,tile_size)) or need to pad/trim input frame
+        CAP.release(cap)                    
+        start_menu() # go back to menu
+        return
         
-        try:
-            surface = pygame.image.frombuffer(SHADER.readback_buffer.readback(), (SHADER.OUTPUT.width, SHADER.OUTPUT.height), "BGRA") # Windows and Linux               
-        except: 
-            print(f"[ERROR] Buffer conversion failed. Expect {SHADER.OUTPUT.width}x{SHADER.OUTPUT.height}={SHADER.OUTPUT.width*SHADER.OUTPUT.height*4}. Got {len(SHADER.readback_buffer.readback())}")
-            print("[ERROR] Currently limited support on target window size. Need to fit into block size of 8/16/64 ???")
-            menu_select_mode = 1
-            CAP.release(cap)                    
-            start_menu() # Refresh
-            return
-            
-        display.blit(surface, (0, 0))
-        if OSD: # display resolution and timing info panel
-            postp_time = (time.perf_counter() - time_postp)*1000
-            shader_time = (time_postp - time_shader)*1000
-            capture_time = (time_shader - time_capture)*1000
-            string = " "+str(width)+"x"+str(height)+" "+str(int(capture_time))+"/"+str(int(shader_time))+"/"+str(int(postp_time))+" ms (CAP/GPU/POST)"
-            text = font.render(string, False, (255, 255, 255),(0,0,0))
-            display.blit(text, (36, 36))
+    display.blit(surface, (0, 0))
+    if OSD: # display resolution and timing info panel
+        postp_time = (time.perf_counter() - time_postp)*1000
+        shader_time = (time_postp - time_shader)*1000
+        capture_time = (time_shader - time_capture)*1000
+        string = " "+str(width)+"x"+str(height)+" "+str(int(capture_time))+"/"+str(int(shader_time))+"/"+str(int(postp_time))+" ms (CAP/GPU/POST)"
+        text = font.render(string, False, (255, 255, 255),(0,0,0))
+        display.blit(text, (36, 36))
             
 # Main
 info = pygame.display.Info()
@@ -130,6 +125,7 @@ print("\n<RTSR> Select an active window to upscale.\n[ESC] to exit.\n[Space Bar]
 pygame.display.set_caption('RTSR')
 pygame.font.init() # print(pygame.font.get_fonts())
 font = pygame.font.SysFont('arialblack', 30)
+fullscreen = 0
 
 start_menu()
 while running:
@@ -149,7 +145,7 @@ while running:
                         winID = windows[i]["id"]
                         winH = windows[i]["height"]
                         winW = windows[i]["width"]
-                        # print("assigned",winW,winH,windows[i]["title"])
+                        # print("Assigned",winW,winH,windows[i]["title"])
                         SHADER.init_buffer(winW,winH) # trimming/padding adjusted w h
                         cap = CAP.init(winID) # create capture handles only once                       
                         display = pygame.display.set_mode((winW*2, winH*2))
@@ -158,27 +154,30 @@ while running:
                     start_menu() # Refresh
 
     if not menu_select_mode:
+        capture_upscale_display(cap)
         for event in events:
             if event.type == pygame.QUIT: running = False # user clicked X to close window        
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 2: # 1/2/3 left/mid/right
-                    #display = pygame.display.set_mode((3840,2160),pygame.FULLSCREEN|pygame.HWSURFACE|pygame.DOUBLEBUF) # toggle full screen
-                    display = pygame.display.set_mode((3840,2160),pygame.FULLSCREEN|pygame.DOUBLEBUF) # toggle full screen
-                elif event.button == 3: # 1/2/3 left/mid/right
-                    menu_select_mode = 1
+                if event.button == 2: # 1/2/3 left/mid/right                    
+                    if(not fullscreen):
+                        #display = pygame.display.set_mode((3840,2160),pygame.FULLSCREEN|pygame.HWSURFACE|pygame.DOUBLEBUF) # toggle full screen
+                        display = pygame.display.set_mode((3840,2160), pygame.FULLSCREEN|pygame.DOUBLEBUF)
+                        fullscreen = 1
+                    else:
+                        display = pygame.display.set_mode((winW*2, winH*2), pygame.DOUBLEBUF) # toggle to normal windowed mode
+                        fullscreen = 0
+                elif event.button == 3: # 1/2/3 left/mid/right                    
                     CAP.release(cap)   
-                    start_menu() # Refresh
+                    start_menu() # go back to menu
                     continue
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE: running = False # ESC to exit
-                elif event.key == pygame.K_SPACE:
-                    menu_select_mode = 1
+                elif event.key == pygame.K_SPACE:                    
                     CAP.release(cap)                    
-                    start_menu() # Refresh
+                    start_menu() # go back to menu
                     continue
-        capture_upscale_display(cap) # Cross platform
-
+                    
     pygame.display.flip()
     clock.tick(60)  # limits FPS to 30/60
 pygame.quit()

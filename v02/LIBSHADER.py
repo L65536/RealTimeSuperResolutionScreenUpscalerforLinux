@@ -44,6 +44,8 @@ def init_buffer(winW,winH):
     OUTPUT = Texture2D(width*2, height*2, R8G8B8A8_UNORM)
     staging_buffer = Buffer(INPUT.size, HEAP_UPLOAD)
     readback_buffer = Buffer(OUTPUT.size, HEAP_READBACK)
+    print(f"Shader buffer IN:{width}x{height}x4={width*height*4} {INPUT.size} allocated.")
+    print(f"Shader buffer OUT:{width*2}x{height*2}x4={width*2*height*2*4} {OUTPUT.size} allocated.")
     T0 = Texture2D(width, height, R8G8B8A8_UNORM)
     T1 = Texture2D(width, height, R8G8B8A8_UNORM)
     T2 = Texture2D(width, height, R8G8B8A8_UNORM)
