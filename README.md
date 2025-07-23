@@ -5,17 +5,24 @@ GPUs and compute shaders are used to speed up the computation.
 This process is similar to Nvidia's DLSS-SR and AMD's FSR series.
 Other similar software projects include Magpie and Lossless Scaling.
 
-# Ver 0.1 Summary
+# Implementation Overview
 This project uses the HLSL shader files taken straight from the Magpie/CuNNy project.
 A fast CNN model called CuNNy-veryfast-NVL is used (It's Similar to Anime4k).
 This model provides good balance of text and graphic upscaling quality and speed.
-Core of this project contains around 200 lines of Python codes plus external HLSL shader files.
+Core of this project contains around 300 lines of Python codes plus external HLSL shader files.
 
-# Ver 0.1 Functionalities
+# Version History
+## v0.0 for Windows and Linux
+- Read single image from file, upscale with SRCNN(Magpie HLSL), display.
+- Batch image converter.
+
+## Ver 0.1 for Linux only
+- Real-time Linux window capture using xlib.
 - X2 upscaling of any runing window to a seperate window in Linux.
-- [GUI] Thumbnailed target window selector at start up. 
+- [GUI] Thumbnailed target window selector at start up.
+- [GUI] OSD displays seperate times for capture/compute/display
 
-# Ver 0.1 Limitations
+## Ver 0.1 Limitations
 - No input passthrough support (need to run the original window side by side or with multi monitor setup).
 - Fixed X2 magnification. No full screen support yet.
 - Does not handle minimized windows. (Plain blue thumbnail is shown)
@@ -24,13 +31,19 @@ Current background screen capture and display function overhead are magnitude sl
 Alternative screen capture and display acceleration approaches are required.
 - [BUG] Wrong display coordinates if the target window is too large (eg. desktop or taskbar at full screen width)
 
-# Ver 0.2 (Windows and Linux) WIP testing
-- [Windows] New Windows branch. The main python GUI script is now cross-platform.
+## Ver 0.2 for Windows and Linux
+- [Windows] New Windows support. The main python GUI script is now cross-platform.
 - [Windows] Capture support using win32gui.
 - [Windows/Linux] Use pygame(SDL) for GUI and display, instead of tkinter.
 - [Windows/Linux] Full screen support with mid mouse button. [ESC] or [Space] key to exit.
- 
-# Acknowledgement and special thanks
+- [Shader backend] Fixed row pitch. Now shaders should support all input window dimensions.
+
+# Todo
+- [Models] Implement/integrate other AI models with pytorch.
+- [Windows/Linux] Look into alternative capture and display methods for speed up tips.
+- Cascade with other resizing shaders for support of random zoom ratio. 
+
+# Acknowledgement and Special Thanks
 This project contains codes based on the following projects/libraries:
 - https://github.com/Blinue/Magpie
 - https://github.com/funnyplanter/CuNNy
