@@ -19,22 +19,22 @@ Core of this project contains around 300 lines of Python codes plus external HLS
 ## Ver 0.1 for Linux only
 - Real-time Linux window capture using xlib.
 - X2 upscaling of any runing window to a seperate window in Linux.
-- [GUI] Thumbnailed target window selector at start up.
+- [GUI] Thumbnailed source window selector at start up.
 - [GUI] OSD displays seperate times for capture/compute/display
 
 ## Ver 0.1 Limitations
 - No input passthrough support (need to run the original window side by side or with multi monitor setup).
 - Fixed X2 magnification. No full screen support yet.
 - Does not handle minimized windows. (Plain blue thumbnail is shown)
-- Slow FPS for large target window sizes. 
+- Slow FPS for large source window sizes. 
 Current background screen capture and display function overhead are magnitude slower than the core shader computations by GPUs.
 Alternative screen capture and display acceleration approaches are required.
-- [BUG] Wrong display coordinates if the target window is too large (eg. desktop or taskbar at full screen width)
+- [BUG] Undefined display/coordinates if the source window is too large (eg. desktop or taskbar at full screen width)
 
 ## Ver 0.2 for Windows and Linux
 - [Windows] New Windows support. The main python GUI script is now cross-platform.
 - [Windows] Capture support using win32gui.
-- [Windows/Linux] Use pygame(SDL) for GUI and display, instead of tkinter.
+- [Windows/Linux] Use pygame(SDL) for faster GUI and display, instead of tkinter.
 - [Windows/Linux] Full screen support with mid mouse button. [ESC] or [Space] key to exit.
 - [Shader backend] Fixed row pitch. Now shaders should support all input window dimensions.
 
@@ -42,7 +42,7 @@ Alternative screen capture and display acceleration approaches are required.
 - [Models] Implement/integrate other AI models with pytorch.
 - [Windows/Linux] Look into alternative capture and display methods for speed up tips.
 - [SHADER] Cascade with other resizing shaders for support of random zoom ratio.
-- [GUI] Input passthrough to target app window.
+- [GUI] Input passthrough to source app window.
 
 # Acknowledgement and Special Thanks
 This project contains codes based on the following projects/libraries:
