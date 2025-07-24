@@ -38,7 +38,7 @@ Alternative screen capture and display acceleration approaches are required.
 - [Windows/Linux] Full screen support with mid mouse button. [ESC] or [Space] key to exit.
 - [Shader backend] Fixed row pitch. Now shaders should support all input window dimensions.
 
-# Todo
+# Future plans
 - [Models] Implement/integrate other AI models with pytorch.
 - [Windows/Linux] Look into alternative capture and display methods for speed up tips.
 - [SHADER] Cascade with other resizing shaders for support of random zoom ratio.
