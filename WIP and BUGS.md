@@ -1,6 +1,7 @@
-#  WIP 0.4
-- Improve cascade shaders speed by elimiting unnecessary intermediate buffer I/O
-- Test keyboard/mouse input pass through by window messenging etc.
+# Ver 0.4 WIP
+- [Windows] Implement Graphics Capture using PyWinRT https://github.com/pywinrt/pywinrt
+- [Shader] Improve cascade shaders speed by elimiting unnecessary intermediate buffer I/O
+- [Windows/LInux] Test keyboard/mouse input pass through by window messenging etc.
 
 # Known Issues and Investigations
 - [Windows] Flickering when capturing, both original and captured. Try different parameter or new capture method.
