@@ -42,8 +42,13 @@ Alternative screen capture and display acceleration approaches are required.
 - [SHADER] Cascade shaders support.
 - [GUI] Improved full screen support with more consistant output layouts.
 
-##  Ver 0.4 Streamlined version for Windows only
+##  Ver 0.4win Streamlined version for Windows 
 - [Windows] Caputure function now uses native Windows calls implemented using pywinrt. This provides theoretically fastest capture speed and customizability on Windows 10+.
+- [Windows] Improved frame latency with callbacks and queue management (Work in Progress)
+  
+##  Ver 0.4linux Streamlined version for Linux (Work in Progress)
+- [Linux] Improved capture processing speed (~2x) with xlib/ctypes.
+- [Linux] Improved frame latency by seperating threads for capture and compute.
 
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
