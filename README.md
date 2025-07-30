@@ -49,11 +49,10 @@ Alternative screen capture and display acceleration approaches are required.
 ##  Ver 0.4linux Streamlined version for Linux (Work in Progress)
 - [Linux] Improved capture processing speed (~2x) with xlib/ctypes.
 - [Linux] Improved frame latency by seperating threads for capture and compute.
+- [Linux] xshm Implementation/benchmark.
 
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
-- [Windows/Linux] Look into alternative capture and display methods for speed up tips.
-- [SHADER] Cascade with other resizing shaders for support of random zoom ratio.
 - [GUI] Input passthrough to source app window.
 
 # Acknowledgement and Special Thanks
