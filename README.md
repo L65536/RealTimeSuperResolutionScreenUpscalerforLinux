@@ -56,6 +56,8 @@ This project contains codes based on the following projects/libraries:
 - https://github.com/Blinue/Magpie
 - https://github.com/funnyplanter/CuNNy
 - https://github.com/rdeioris/compushady
+- https://github.com/pywinrt/pywinrt
+- https://www.pygame.org/
 - https://github.com/UR4N0-235/XWindowSystem_Screenshoter
 - https://github.com/BoboTiG/python-mss/issues/180
-- https://www.pygame.org/
+
