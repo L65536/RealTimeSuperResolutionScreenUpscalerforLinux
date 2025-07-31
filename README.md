@@ -46,10 +46,10 @@ Alternative screen capture and display acceleration approaches are required.
 - [Windows] Caputure function now uses native Windows calls implemented using pywinrt. This provides theoretically fastest capture speed and customizability on Windows 10+.
 - [Windows] Improved frame latency with callbacks and queue management (Work in Progress)
   
-##  Ver 0.4linux Streamlined version for Linux (Work in Progress)
-- [Linux] Improved capture processing speed (~2x) with xlib/ctypes.
-- [Linux] Improved frame latency by seperating threads for capture and compute.
-- [Linux] xshm Implementation/benchmark.
+##  Ver 0.4linux Streamlined version for Linux 
+- [Linux] Improved capture processing speed (2x~3x) with xlib/ctypes.
+- [Linux] Improved frame latency by seperating threads for capture and compute. (Work in Progress)
+- [Linux] xshm Implementation/benchmark. (Work in Progress)
 
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
