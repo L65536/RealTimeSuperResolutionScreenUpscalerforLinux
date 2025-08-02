@@ -65,6 +65,7 @@ def on_mouse_press(x, y, button, modifiers):
 @window.event
 def on_draw():
     global count, time_display, display_queue
+    if running == 0: return
 
     if False: # [WINDOWS] mirroring mode, for testing
         bitmap = capture_queue.get()
@@ -78,7 +79,9 @@ def on_draw():
         img.blit(0, 0)
         count+=1
 
-    if(display_queue.get()):
+    if(display_queue.qsize() == 1):
+        display_queue.get()
+        
         t = time.perf_counter()
         img = pyglet.image.ImageData(SRCNN.OUTPUT.row_pitch//4, SRCNN.OUTPUT.height, "RGBA", SRCNN.readback_buffer.readback(), pitch=-SRCNN.OUTPUT.row_pitch)
         #img = pyglet.image.ImageData(SRCNN.OUTPUT.row_pitch//4, SRCNN.OUTPUT.height, "RGBA", SRCNN.readback_buffer.readback())
@@ -111,7 +114,8 @@ def compute_worker():
     global display_queue
 
     while running:
-        bitmap = capture_queue.get()        
+        bitmap = capture_queue.get()
+        if bitmap is None: break
         t = time.perf_counter()
 
         if os.name == 'nt':
@@ -128,7 +132,7 @@ def compute_worker():
             first_run = 0
             SRCNN.init_buffer(w, h)
             # offsetX, offsetY = (0, 0) #calculate_client_offset(w, h)
-        SRCNN.upload(mv, w, h)    
+        SRCNN.upload(mv, w, h)
         capture_queue.task_done() # still keeps reference # release resource after upload
         SRCNN.compute(mv, w, h)
         time_compute = (time.perf_counter() - t)*1000
@@ -140,7 +144,9 @@ capture_thread.start()
 compute_thread = threading.Thread(target=compute_worker, args=())
 compute_thread.start()
 pyglet.app.run() # default 1/60, 0=continuously, None=manual
-display_queue.put(None)
+
 running = 0 # signal terminating thread
 CAP.running = 0 # signal terminating thread
+capture_queue.put(None)
+display_queue.put(None)
 print('End')
