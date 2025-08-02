@@ -30,15 +30,15 @@ screen_height = screen.height
 print(f"Monitor Resolution: {screen_width}x{screen_height}")
 
 # local library import
-import LIBSHADER_SRCNN as SRCNN
+import LIBSHADER_SRCNN2 as SRCNN
 
-if os.name == 'nt': 
+if os.name == 'nt':
     import CAPTURE_WINDOWS as CAP
     import CLI_MENU as MENU
-else: 
+else:
     import CAPTURE_LINUX as CAP
     import CLI_MENU_LINUX as MENU
-    
+
 handle, clientW, clientH, windowW, windowH = MENU.get_window_handle()
 print(handle, clientW, clientH)
 
@@ -78,18 +78,15 @@ def on_draw():
         img.blit(0, 0)
         count+=1
 
-    if display_queue.qsize() == 1:
+    if(display_queue.get()):
         t = time.perf_counter()
-        display_queue.get()
-        display_queue.task_done()
-        window.clear()
         img = pyglet.image.ImageData(SRCNN.OUTPUT.row_pitch//4, SRCNN.OUTPUT.height, "RGBA", SRCNN.readback_buffer.readback(), pitch=-SRCNN.OUTPUT.row_pitch)
         #img = pyglet.image.ImageData(SRCNN.OUTPUT.row_pitch//4, SRCNN.OUTPUT.height, "RGBA", SRCNN.readback_buffer.readback())
-        img.blit(0, 0)        
+        window.clear()
+        img.blit(0, 0)
         count+=1
-
-        # string = f"{window.width}x{window.height} {count}"
-        # label = pyglet.text.Label(string, font_size=72, x=window.width // 2, y=window.height // 2, anchor_x='center', anchor_y='center')
+        display_queue.task_done()
+        time_display = (time.perf_counter() - t)*1000
 
         w = clientW
         h = clientH
@@ -97,8 +94,8 @@ def on_draw():
         window.set_caption(string)
         # label = pyglet.text.Label(string, font_size=72, x=window.width//32, y=window.height*15//16, color = (255,0,0))
         # label.draw()
-        time_display = (time.perf_counter() - t)*1000
-        
+        # string = f"{window.width}x{window.height} {count}"
+        # label = pyglet.text.Label(string, font_size=72, x=window.width // 2, y=window.height // 2, anchor_x='center', anchor_y='center')
 
 def calculate_client_offset(w, h):
     boarder=(w-clientW)//2
@@ -113,12 +110,10 @@ def compute_worker():
     global time_compute
     global display_queue
 
-    while running:        
-        bitmap = capture_queue.get()
-        capture_queue.task_done() # still keeps reference # release resource ???
-        
+    while running:
+        bitmap = capture_queue.get()        
         t = time.perf_counter()
-        
+
         if os.name == 'nt':
             w = bitmap.pixel_width
             h = bitmap.pixel_height
@@ -126,23 +121,26 @@ def compute_worker():
             mv = memoryview(buffer.create_reference())
         else:
             w = clientW
-            h = clientH            
+            h = clientH
             mv = memoryview(bitmap) # cbuffer = (ctypes.c_ubyte*clientW*clientH*4)()
-            
+
         if first_run:
             first_run = 0
             SRCNN.init_buffer(w, h)
             # offsetX, offsetY = (0, 0) #calculate_client_offset(w, h)
+        SRCNN.upload(mv, w, h)    
+        capture_queue.task_done() # still keeps reference # release resource after upload
         SRCNN.compute(mv, w, h)
         time_compute = (time.perf_counter() - t)*1000
 
-        display_queue.put(1) # trigger on_draw(vsync) from compute_worker
+        display_queue.put(SRCNN.download()) # trigger on_draw(vsync) from compute_worker
 
 capture_thread = threading.Thread(target=CAP.capture_worker, args=(capture_queue, handle, clientW, clientH, windowW, windowH))
 capture_thread.start()
 compute_thread = threading.Thread(target=compute_worker, args=())
 compute_thread.start()
 pyglet.app.run() # default 1/60, 0=continuously, None=manual
+display_queue.put(None)
 running = 0 # signal terminating thread
 CAP.running = 0 # signal terminating thread
 print('End')
