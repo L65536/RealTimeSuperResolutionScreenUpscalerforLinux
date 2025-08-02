@@ -3,7 +3,8 @@
 - [Shader] Improve cascade shaders speed by elimiting unnecessary intermediate buffer I/O
 
 # Known Issues and Investigations
-- [Windows] ver 0.5 Flickering => break down compute() to smaller functions and wait for display queue finish before download/overwrite buffer => fix => add more checks for queues for gracefully exit.
+- [Windows] ver 0.5 Flickering at start, when no screen update => break down compute() to smaller functions and wait for display queue finish before download/overwrite buffer
+- Add more checks for queues for gracefully exit.
   
 # Implemented or Solved Issues
 - [Windows] Implement Graphics Capture using PyWinRT https://github.com/pywinrt/pywinrt
