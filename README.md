@@ -51,7 +51,7 @@ Alternative screen capture and display acceleration approaches are required.
 ##  Ver 0.5 Windows and Linux
 - [GUI] Switched to Pyglet for GUI and display, instead of Pygame. This should provide more consistant full screen switching and faster display, especially on Linux.
 - Improved frame latency with concurrent thread/queue management for capture, compute and display.
-- [BUGS] Flickering in Windows.
+- [BUGS] Flickering in some cases.
  
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
