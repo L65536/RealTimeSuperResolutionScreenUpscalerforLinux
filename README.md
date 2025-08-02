@@ -29,7 +29,6 @@ Core of this project contains around 300 lines of Python codes plus external HLS
 - Slow FPS for large source window sizes. 
 Current background screen capture and display function overhead are magnitude slower than the core shader computations by GPUs.
 Alternative screen capture and display acceleration approaches are required.
-- [BUG] Undefined display/coordinates if the source window is too large (eg. desktop or taskbar at full screen width)
 
 ## Ver 0.2 for Windows and Linux
 - [Windows] New Windows support. The main python GUI script is now cross-platform.
