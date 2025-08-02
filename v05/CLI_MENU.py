@@ -19,7 +19,7 @@ def get_window_handle(default = 0):
     while True:
         try:
             if default: selection = default                
-            else: selection = input("\nSelect a window to capture: ")
+            else: selection = input("\nSelect a window to capture (1-n): ")
             selected_item = windows[int(selection) - 1]
             clientW, clientH = client[int(selection) - 1]            
             windowW = selected_item.size.width
