@@ -43,14 +43,17 @@ Alternative screen capture and display acceleration approaches are required.
 - [GUI] Improved full screen support with more consistant output layouts.
 
 ##  Ver 0.4win Streamlined version for Windows 
-- [Windows] Caputure function now uses native Windows calls implemented using pywinrt. This provides theoretically fastest capture speed and customizability on Windows 10+.
-- [Windows] Improved frame latency with callbacks and queue management (Work in Progress)
+- [Windows] Caputure function now uses native Windows Graphic Capture Direct3D11CaptureFramePool calls implemented using pywinrt. This provides theoretically fastest capture speed and customizability on Windows 10+.
   
 ##  Ver 0.4linux Streamlined version for Linux 
 - [Linux] Improved capture processing speed (2x~3x) with xlib/ctypes.
-- [Linux] Improved frame latency by seperating threads for capture and compute. (Work in Progress)
 - [Linux] xshm Implementation/benchmark. (Work in Progress)
 
+##  Ver 0.5 Windows and Linux
+- [GUI] Switched to Pyglet for GUI and display, instead of Pygame. This should provide more consistant full screen switching and faster display, especially on Linux.
+- Improved frame latency with concurrent thread/queue management for capture, compute and display.
+- [BUGS] Flickering in Windows.
+ 
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
 - [GUI] Input passthrough to source app window.
