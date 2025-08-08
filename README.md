@@ -53,7 +53,7 @@ Alternative screen capture and display acceleration approaches are required.
 - Improved frame latency with concurrent thread/queue management for capture, compute and display.
 
 ##  Ver 0.6 Windows and Linux
-- [Display] Implemented compushady.Swapchain display function. This reduces display overhead and increases FPS significantly.
+- [Display] Implemented compushady.Swapchain display function. This eliminates display overhead and increases FPS significantly.
 - [BUG] Linux version hangs within one minute. Probably thread/queue issues. WIP...
 
 # Future plans
