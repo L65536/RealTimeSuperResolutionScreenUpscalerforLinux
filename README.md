@@ -51,7 +51,11 @@ Alternative screen capture and display acceleration approaches are required.
 ##  Ver 0.5 Windows and Linux
 - [GUI] Switched to Pyglet for GUI and display, instead of Pygame. This should provide more consistant full screen switching and faster display, especially on Linux.
 - Improved frame latency with concurrent thread/queue management for capture, compute and display.
- 
+
+##  Ver 0.6 Windows and Linux
+- [Display] Implemented compushady.Swapchain display function. This reduces display overhead and increases FPS significantly.
+- [BUG] Linux version hangs within one minute. Probably thread/queue issues. WIP...
+
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
 - [GUI] Input passthrough to source app window.
@@ -62,7 +66,10 @@ This project contains codes based on the following projects/libraries:
 - https://github.com/funnyplanter/CuNNy
 - https://github.com/rdeioris/compushady
 - https://github.com/pywinrt/pywinrt
-- https://www.pygame.org/
+- https://stackoverflow.com/questions/69645/take-a-screenshot-via-a-python-script-on-linux/16141058#16141058
 - https://github.com/UR4N0-235/XWindowSystem_Screenshoter
+### Used for old versions of this project:
+- https://pyglet.org/
+- https://www.pygame.org/
 - https://github.com/BoboTiG/python-mss/issues/180
 
