@@ -44,7 +44,7 @@ screen_width = screen.width
 screen_height = screen.height
 print(f"Monitor Resolution: {screen_width}x{screen_height}\n")
 if cropping: window = pyglet.window.Window(clientW*2, clientH*2, resizable=True, caption='Display', vsync=True)
-else: window = pyglet.window.Window(windowW*2, windowW*2, resizable=True, caption='Display', vsync=True)
+else: window = pyglet.window.Window(windowW*2, windowH*2, resizable=True, caption='Display', vsync=True)
 
 if platform.system() == 'Windows':
     swapchain = Swapchain(window._hwnd, R8G8B8A8_UNORM, 3) # window._hwnd for windows only
