@@ -22,7 +22,8 @@ def capture_worker(capture_queue, handle, clientW, clientH, windowW, windowH):
     count = 0 # loop count
     while running:                                    
         t = time.perf_counter()                                                                
-        cap.captureRGBX(0, 0, clientW, clientH, handle, cbuffer) # window must NOT be minimized, uncatchable err            
+        #cap.captureRGBX(0, 0, clientW, clientH, handle, cbuffer) # window must NOT be minimized, uncatchable err
+        cap.captureBGRX(0, 0, clientW, clientH, handle, cbuffer) # window must NOT be minimized, uncatchable err            
         if running: capture_queue.put(cbuffer)        
         time_capture = (time.perf_counter() - t)*1000
         count+=1
