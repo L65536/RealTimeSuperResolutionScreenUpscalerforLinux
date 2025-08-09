@@ -68,8 +68,12 @@ def compute_worker():
     while running:
         bitmap = capture_queue.get() # blocking
         t = time.perf_counter()
-        w = clientW
-        h = clientH
+        if cropping:
+            w = clientW
+            h = clientH
+        else:
+            w = windowW
+            h = windowH
 
         if first_run:
             first_run = 0
