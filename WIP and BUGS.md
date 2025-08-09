@@ -1,15 +1,13 @@
 # Ver 0.6 WIP
-- [Linux] crash
-- [Linux] xshm testing
-- [Windows] capture/cropping client area without costly operations
-  
+- [Linux] unstable latency.
+- [Linux] xshm testing.
+- [Windows] capture/crop client area without costly numpy operations.
+- [Windows/Linux] Fullscreen support for swapchain display.
+- Gracefully exit/clean up for compushady.
+   
 # Future plans
 - [Windows/LInux] Keyboard/mouse input pass through by window messenging etc.
 - [Shader] Improve cascade shaders speed by elimiting unnecessary intermediate buffer I/O
-
-# Past Issues
-- [Windows] ver 0.5 Flickering at start, when no screen update => break down compute() to smaller functions and wait for display queue finish before download/overwrite buffer
-- Add more checks for queues for gracefully exit.
   
 # Implemented or Solved Issues
 - [Windows] Implement Graphics Capture using PyWinRT https://github.com/pywinrt/pywinrt
