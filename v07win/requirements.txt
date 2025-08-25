@@ -1,0 +1,10 @@
+winrt.windows.graphics.capture
+winrt.windows.graphics.directx
+winrt.windows.graphics.directx.direct3d11
+winrt.windows.graphics.directx.direct3d11.interop
+winrt.windows.graphics
+winrt.windows.graphics.imaging 
+winrt.windows.ui
+winrt.windows.ui.windowmanagement
+winrt.windows.foundation
+winrt.windows.foundation.collections
