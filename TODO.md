@@ -2,7 +2,6 @@
 - [Shader/Windows] use shader to crop image for client area
 - [Shader/Linux] use shader to convert XPixMap
 - [Capture/Windows] load/copy captured texture within VRAM
-- [Capture/Windows] improve cropping speed by modify Compushady/upload2D
 - [Capture] try NVFBC
 
 # WIP
@@ -20,7 +19,10 @@
 - [Windows] Flickering when capturing, both original and captured.  => fixed with new capture method.
 - [Linux] Improve capture with ctypes. => 2x~3x faster
 - Optimize threads/queues/callbacks to reduce frame latency.
-- Use display swapchain and copy output texture within VRAM.
-- [Windows/LInux] Keyboard/mouse input pass through by transparent overlay window.
-- [Windows/Linux] Fullscreen support for swapchain display.
-- 
+- [v06 Windows/Linux] Display swapchain and copy output texture within VRAM.
+- [v07 Windows/LInux] Keyboard/mouse input pass through by transparent overlay window.
+- [v07 win/g40] [Capture/Windows] improve cropping speed with slack/lazy cropping (cut out title bar only)
+
+
+
+
