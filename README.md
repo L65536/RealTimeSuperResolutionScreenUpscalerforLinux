@@ -55,13 +55,12 @@ Alternative screen capture and display acceleration approaches are required.
 ##  Ver 0.6 Windows and Linux
 - [Display] Implemented compushady's Swapchain display function. This eliminates display overhead and should increase FPS significantly.
 
-##  Ver 0.7 Windows only
+##  Ver 0.7 Windows and Linux
 - [Display/UI] Implemented transparent window overlay mode and enabled keyboard/mouse passthrough.
-- [UI] Use [TAB] key to start/stop upscaling current active window.
+- [Windows/UI] Use [TAB] key to start/stop upscaling current active window.
   
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
-- [Linux/UI] Input passthrough to source app window.
 
 # Acknowledgement and Special Thanks
 This project contains codes based on the following projects/libraries:
