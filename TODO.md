@@ -1,8 +1,14 @@
-# Ver 0.7 WIP
-- [Linux] unstable frame rate/latency.
-- [Linux] xshm testing.
-- [LInux] Keyboard/mouse input pass through by transparent window or messenging etc.
-- [Linux] Fullscreen support for swapchain display.
+# TODO PLANS
+- [Shader/Windows] use shader to crop image for client area
+- [Shader/Linux] use shader to convert XPixMap
+- [Capture/Windows] load/copy captured texture within VRAM
+- [Capture/Windows] improve cropping speed by modify Compushady/upload2D
+- [Capture] try NVFBC
+
+# WIP
+- [Linux] display_id_int = glfw.get_x11_display() # How to get this number with XLIB or PYQT5 ????? changes every run
+- [Linux] Compushady/Swapchain not as fast as expected when compared to Windows
+- [Linux] xshm testing, no speed improvement observed.
 - [Windows] capture/crop client area without costly numpy operations.
 - [Shader] Improve cascade shaders speed by elimiting unnecessary intermediate buffer I/O
 - [Testing] Gracefully exit/clean up for compushady and capture.
@@ -15,3 +21,6 @@
 - [Linux] Improve capture with ctypes. => 2x~3x faster
 - Optimize threads/queues/callbacks to reduce frame latency.
 - Use display swapchain and copy output texture within VRAM.
+- [Windows/LInux] Keyboard/mouse input pass through by transparent overlay window.
+- [Windows/Linux] Fullscreen support for swapchain display.
+- 
