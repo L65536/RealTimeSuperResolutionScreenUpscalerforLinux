@@ -6,8 +6,8 @@
 
 # TODO PLANS
 - [Capture/Linux] use shader to convert XPixMap
+- [Capture/Linux] try NVFBC
 - [Capture/Windows] load/copy captured texture within VRAM (check stride issue)
-- [Capture] try NVFBC
   
 # HISTORY
 - [Windows] Implement Graphics Capture using PyWinRT https://github.com/pywinrt/pywinrt
