@@ -1,14 +1,13 @@
+# WIP
+- [Linux] Compushady/Swapchain not as fast as expected when compared to Windows
+- [Linux] xshm testing, no speed improvement observed yet.
+- [Shader] Improve cascade shaders speed by elimiting unnecessary intermediate buffer I/O
+- [Testing] Gracefully exit/clean up for compushady/capture/qt.
+
 # TODO PLANS
 - [Capture/Linux] use shader to convert XPixMap
-- [Capture/Windows] load/copy captured texture within VRAM
+- [Capture/Windows] load/copy captured texture within VRAM (check stride issue)
 - [Capture] try NVFBC
-
-# WIP
-- [Linux] display_id_int = glfw.get_x11_display() # How to get this number with XLIB or PYQT5 ????? changes every run
-- [Linux] Compushady/Swapchain not as fast as expected when compared to Windows
-- [Linux] xshm testing, no speed improvement observed.
-- [Shader] Improve cascade shaders speed by elimiting unnecessary intermediate buffer I/O
-- [Testing] Gracefully exit/clean up for compushady and capture.
   
 # HISTORY
 - [Windows] Implement Graphics Capture using PyWinRT https://github.com/pywinrt/pywinrt
