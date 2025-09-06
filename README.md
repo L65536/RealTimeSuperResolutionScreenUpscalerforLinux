@@ -58,6 +58,10 @@ Alternative screen capture and display acceleration approaches are required.
 ##  Ver 0.7 Windows and Linux
 - [Display/UI] Implemented transparent window overlay mode and enabled keyboard/mouse passthrough.
 - [Windows/UI] Use [TAB] key to start/stop upscaling current active window.
+
+##  Ver 0.8 Linux only
+- [Capture] Implemented NVFBC capture with X11 backend (NVFBC_BACKEND_X11) via ctypes. Much faster capture performance. Requires a Nvidia GPU. This particular backend only works with non-occluded windows.
+- [Capture] [Work in Progress] Implementing NVFBC capture with DIRECT backend (NVFBC_BACKEND_DIRECT). This backend should be able to capture occluded applications on both X11 and Wayland. This method was just made available since the latest API update in 2025 H2. Requires the latest driver.
   
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
