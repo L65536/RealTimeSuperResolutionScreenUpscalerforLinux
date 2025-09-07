@@ -34,7 +34,7 @@ if True: # starting CLI UI
     print("[To exit] Press Ctrl-C in the terminal window.")
     print("[To exit] Move mouse to the upper-left corner.")       
     print("Upscaling the next active window in 5 seconds...\n")
-    time.sleep(1)
+    time.sleep(5)
     
     disp = display.Display()
     root = disp.screen().root
