@@ -60,8 +60,14 @@ Alternative screen capture and display acceleration approaches are required.
 - [Windows/UI] Use [TAB] key to start/stop upscaling current active window.
 
 ##  Ver 0.8 Linux only
-- [Capture] Implemented NVFBC capture with X11 backend (NVFBC_BACKEND_X11) via ctypes. Much faster capture performance. Requires a Nvidia GPU. This particular backend only works with non-occluded windows.
-- [Capture] [Work in Progress] Implementing NVFBC capture with DIRECT backend (NVFBC_BACKEND_DIRECT). This backend should be able to capture occluded applications on both X11 and Wayland. This method was just made available since the latest API update in 2025 H2. Requires the latest driver.
+- [Capture] Implemented NVFBC with X11 backend (NVFBC_BACKEND_X11) via ctypes. Much faster capture performance.
+  - [Limitation] Requires a Nvidia GPU.
+  - [Limitation] This particular backend only works with non-occluded windows. Only suitable for ultrawide screens.
+  - [Limitation] NVFBC_BACKEND_X11 is for X11 only.
+- [Work in Progress] [Capture] Implementing NVFBC capture with DIRECT backend (NVFBC_BACKEND_DIRECT). This backend should be able to capture occluded applications on both X11 and Wayland. This method was just released since the latest capture API update in H2 2025.
+  - [Limitation] Current capture API v1.9 only works with Vulkan programs, but not OpenGL programs. MangoHud could show which display library a program uses.
+  - [Limitation] Requires a Nvidia GPU with the latest driver. (tested on 580)
+  - [Limitation] This repo implementaion currently only supports x11, Wayland support is work in progress.
   
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
