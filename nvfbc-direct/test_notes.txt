@@ -1,0 +1,19 @@
+nvidia-smi
+sudo dbus-monitor --system
+
+> glxinfo -B
+> eglinfo -B
+libEGL warning: egl: failed to create dri2 screen
+libEGL warning: pci id for fd 34: 10de:1cb6, driver (null)
+eglinfo: eglInitialize failed
+=> Ignore, does not matter, still working
+
+pci id for fd 35: 10de:1cb6, driver (null)
+kmsro: driver missing
+=> Ignore, does not matter, still working
+
+https://bbs.archlinux.org/viewtopic.php?id=303403
+https://wiki.archlinux.org/title/Kernel_parameters
+nvidia_drm modeset=1 fbdev=1
+APPEND nvidia_drm.modeset=1 nvidia_drm.fbdev=1
+=> not needed at all if driver already running
