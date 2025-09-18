@@ -66,8 +66,9 @@ Alternative screen capture and display acceleration approaches are required.
   - [Limitation] NVFBC_BACKEND_X11 is for X11 only.
 - [Work in Progress] [Capture] Implementing NVFBC capture with DIRECT backend (NVFBC_BACKEND_DIRECT). This backend should be able to capture occluded applications on both X11 and Wayland. This method was just released since the latest capture API update in H2 2025.
   - [Limitation] Current capture API v1.9 only works with Vulkan programs, but not OpenGL programs. MangoHud could show which display library a program uses.
-  - [Limitation] Requires a Nvidia GPU with the latest driver. (tested on 580)
   - [Limitation] This repo implementaion currently only supports x11, Wayland support is work in progress.
+  - [Requirement] Requires a Nvidia GPU with the latest driver. (tested on 580)
+  - [Requirement] nvidia-dbus.conf to be placed at /etc/dbus-1/system.d/, reboot. (requires only dbus, not systemd)
   
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
