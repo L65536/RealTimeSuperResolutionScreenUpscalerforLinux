@@ -1,8 +1,7 @@
 # WIP
-- [Capture/Linux] NVFBC with NVFBC_BACKEND_DIRECT => Unable to send DBus message ???
 - [Shader] FP16 support
 - [Shader] Improve cascade shaders speed by elimiting unnecessary intermediate buffer I/O
-- [Testing] Gracefully exit/clean up for compushady/capture/qt.
+- [Testing] Gracefully exit/clean up for compushady/capture/qt(pyside6).
 - [Capture/Windows/Linux] load/copy captured texture within VRAM (interop, check stride issue)
 
 # ON HOLD
@@ -21,7 +20,7 @@
 - [v07 win/g40] [Capture/Windows] improve cropping speed with slack/lazy cropping (cut out title bar only)
 - [v07 win/g43] improve out-of-bound mouse position => warp to the other side.
 - [v08 Linux] Compushady/Swapchain not as fast as expected when compared to Windows => NVFBC reduced overall CPU load significantly.
-
+- [Capture/Linux] NVFBC with NVFBC_BACKEND_DIRECT => Unable to send DBus message => Only works with vulkan apps
 
 
 
