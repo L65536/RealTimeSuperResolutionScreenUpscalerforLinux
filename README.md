@@ -12,6 +12,7 @@ This model provides good balance of text and graphic upscaling quality and speed
 
 Screen captures are performed natively using DirectX's Graphics Capture (for Windows) and NVFBC direct backend (for Linux) for the best latency performance.
 The shaders are loaded using Compushady library and computed on GPU. Display via Swapchain.
+
 Core of this project contains around 300 lines of Python and C codes plus external HLSL shader files.
 
 # Latest stable versions
