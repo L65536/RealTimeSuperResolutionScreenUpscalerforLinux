@@ -9,7 +9,24 @@ Other similar software projects include Magpie and Lossless Scaling.
 This project uses the HLSL shader files taken straight from the Magpie/CuNNy project.
 A fast CNN model called CuNNy-veryfast-NVL is used (It's Similar to Anime4k).
 This model provides good balance of text and graphic upscaling quality and speed.
+Screen captures were performed natively using Graphics Capture(Windows) and NVFBC direct backend(Linux) for the best latency performance.
+The shaders were loaded using compushady library and computed on GPU. Display via Swapchain.
 Core of this project contains around 300 lines of Python codes plus external HLSL shader files.
+
+# Latest versions
+## For Linux 
+https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/main/v08linux_nvfbc/g62nvfbc-direct.py
+## For Windows 
+https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/main/v07win/g43.py
+
+# Development and test system configurations
+- Windows 11 RTSC
+- Python 3.12.xx
+- (Linux) PorteuX 2.3 (Slackware current)
+- (Linux) Xfce 4.2 with X11
+- (Linux) NVIDIA Driver 580.82.09
+- (Linux) wine-10.15 (from PorteuX store)
+- (Linux) dxvk-2.7.1 for wine (from Github download), required for NVFBC direct capture.
 
 # Version History
 ## Ver 0.0 for Windows and Linux
@@ -64,11 +81,11 @@ Alternative screen capture and display acceleration approaches are required.
   - [Limitation] Requires a Nvidia GPU.
   - [Limitation] This particular backend only works with non-occluded windows. Only suitable for ultrawide screens.
   - [Limitation] NVFBC_BACKEND_X11 is for X11 only.
-- [Work in Progress] [Capture] Implementing NVFBC capture with DIRECT backend (NVFBC_BACKEND_DIRECT). This backend should be able to capture occluded applications on both X11 and Wayland. This method was just released since the latest capture API update in H2 2025.
+- [Capture] Implemented NVFBC capture with DIRECT backend (NVFBC_BACKEND_DIRECT). This backend can capture occluded applications on both X11 and Wayland. This method was just released since the latest capture API update in H2 2025.
   - [Limitation] Current capture API v1.9 only works with Vulkan programs, but not OpenGL programs. MangoHud could show which display library a program uses.
-  - [Limitation] This repo implementation currently only supports x11, Wayland support is work in progress.
-  - [Requirement] Requires a Nvidia GPU with the latest driver. (tested on 580)
-  - [Requirement] nvidia-dbus.conf to be placed at /etc/dbus-1/system.d/, reboot. (requires only dbus, not systemd)
+  - [Limitation] This repo's implementation has only been tested on x11, Wayland support is work in progress.
+  - [Requirement] Requires a Nvidia GPU with the latest driver. (tested on 580.xx)
+  - [Requirement] nvidia-dbus.conf needs to be placed at /etc/dbus-1/system.d/, then reboot. (requires dbus only, not related to systemd)
   
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
@@ -78,7 +95,11 @@ This project contains codes based on the following projects/libraries:
 - https://github.com/Blinue/Magpie
 - https://github.com/funnyplanter/CuNNy
 - https://github.com/rdeioris/compushady
+- https://developer.nvidia.com/capture-sdk
 - https://github.com/pywinrt/pywinrt
+- https://pypi.org/project/PySide6/
+
+- For old versions:
 - https://github.com/UR4N0-235/XWindowSystem_Screenshoter
 - https://stackoverflow.com/questions/69645/take-a-screenshot-via-a-python-script-on-linux/16141058#16141058
 - https://pyglet.org/
