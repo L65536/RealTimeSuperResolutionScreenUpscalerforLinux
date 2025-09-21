@@ -1,8 +1,8 @@
 # WIP
+- [Bug] Gracefully exit/clean up for compushady/capture/qt(pyside6).
 - [Shader] FP16 support
 - [Shader] Improve cascade shaders speed by elimiting unnecessary intermediate buffer I/O
-- [Testing] Gracefully exit/clean up for compushady/capture/qt(pyside6).
-- [Capture/Windows/Linux] load/copy captured texture within VRAM (interop, check stride issue)
+- [Capture/Windows/Linux] load/copy captured texture within VRAM (interop, check stride issues)
 
 # ON HOLD
 - [Capture/Linux] use shader to convert XPixMap. => use NVFBC instead
