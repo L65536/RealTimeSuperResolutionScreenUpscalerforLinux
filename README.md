@@ -9,8 +9,8 @@ Other similar software projects include Magpie and Lossless Scaling.
 This project uses the HLSL shader files taken straight from the Magpie/CuNNy project.
 A fast CNN model called CuNNy-veryfast-NVL is used (It's Similar to Anime4k).
 This model provides good balance of text and graphic upscaling quality and speed.
-Screen captures were performed natively using Graphics Capture(Windows) and NVFBC direct backend(Linux) for the best latency performance.
-The shaders were loaded using compushady library and computed on GPU. Display via Swapchain.
+Screen captures are performed natively using DirectX's Graphics Capture (for Windows) and NVFBC direct backend (for Linux) for the best latency performance.
+The shaders are loaded using Compushady library and computed on GPU. Display via Swapchain.
 Core of this project contains around 300 lines of Python codes plus external HLSL shader files.
 
 # Latest versions
@@ -91,14 +91,15 @@ Alternative screen capture and display acceleration approaches are required.
 - [Models] Implement/integrate other AI models with pytorch.
 
 # Acknowledgement and Special Thanks
-This project contains codes based on the following projects/libraries:
+This project contains codes based on the following projectsa and libraries:
 - https://github.com/Blinue/Magpie
 - https://github.com/funnyplanter/CuNNy
 - https://github.com/rdeioris/compushady
 - https://developer.nvidia.com/capture-sdk
 - https://github.com/pywinrt/pywinrt
 - https://pypi.org/project/PySide6/
-
+- https://shallowsky.com/blog/programming/click-thru-translucent-update.html
+  
 - For old versions:
 - https://github.com/UR4N0-235/XWindowSystem_Screenshoter
 - https://stackoverflow.com/questions/69645/take-a-screenshot-via-a-python-script-on-linux/16141058#16141058
