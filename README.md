@@ -24,7 +24,7 @@ https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/mai
 # Development and test system configurations
 - Windows 11 RTSC
 - Python 3.12.xx
-- (Linux) PorteuX 2.3 (Slackware current)
+- (Linux) PorteuX 2.3 (Slackware current based)
 - (Linux) Xfce 4.2 with X11
 - (Linux) NVIDIA Driver 580.82.09
 - (Linux) wine-10.15 (from PorteuX store)
@@ -83,9 +83,9 @@ Alternative screen capture and display acceleration approaches are required.
   - [Limitation] Requires a Nvidia GPU.
   - [Limitation] This particular backend only works with non-occluded windows. Only suitable for ultrawide screens.
   - [Limitation] NVFBC_BACKEND_X11 is for X11 only.
-- [Capture] Implemented NVFBC capture with DIRECT backend (NVFBC_BACKEND_DIRECT). This backend can capture occluded applications on both X11 and Wayland. This method was just released since the latest capture API update in H2 2025.
+- [Capture] Implemented NVFBC capture with DIRECT backend (NVFBC_BACKEND_DIRECT). This backend can capture occluded applications on both X11 and Wayland. This new capture backend API was just released in H2 2025.
   - [Limitation] Current capture API v1.9 only works with Vulkan programs, but not OpenGL programs. MangoHud could show which display library a program uses.
-  - [Limitation] This repo's implementation has only been tested on x11, Wayland support is work in progress.
+  - [Limitation] This repo's implementation has only been tested on x11. Full Wayland support is work in progress.
   - [Requirement] Requires a Nvidia GPU with the latest driver. (tested on 580.xx)
   - [Requirement] nvidia-dbus.conf needs to be placed at /etc/dbus-1/system.d/, then reboot. (requires dbus only, not related to systemd)
   
