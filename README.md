@@ -9,9 +9,10 @@ Other similar software projects include Magpie and Lossless Scaling.
 This project uses the HLSL shader files taken straight from the Magpie/CuNNy project.
 A fast CNN model called CuNNy-veryfast-NVL is used (It's Similar to Anime4k).
 This model provides good balance of text and graphic upscaling quality and speed.
+
 Screen captures are performed natively using DirectX's Graphics Capture (for Windows) and NVFBC direct backend (for Linux) for the best latency performance.
 The shaders are loaded using Compushady library and computed on GPU. Display via Swapchain.
-Core of this project contains around 300 lines of Python codes plus external HLSL shader files.
+Core of this project contains around 300 lines of Python and C codes plus external HLSL shader files.
 
 # Latest stable versions
 ## For Linux 
