@@ -16,7 +16,7 @@ The shaders are loaded using Compushady library and computed on GPU. Display via
 Core of this project contains around 300 lines of Python and C codes plus external HLSL shader files.
 
 # Latest stable versions
-## For Linux 
+## For Linux with Nvidia GPUs
 https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/main/v08linux_nvfbc/g62nvfbc-direct.py
 ## For Windows 
 https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/main/v07win/g43.py
@@ -98,6 +98,7 @@ This project contains codes based on the following projectsa and libraries:
 - https://github.com/funnyplanter/CuNNy
 - https://github.com/rdeioris/compushady
 - https://developer.nvidia.com/capture-sdk
+- https://github.com/LizardByte/Sunshine
 - https://github.com/pywinrt/pywinrt
 - https://pypi.org/project/PySide6/
 - https://shallowsky.com/blog/programming/click-thru-translucent-update.html
