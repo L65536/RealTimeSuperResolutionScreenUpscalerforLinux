@@ -13,7 +13,7 @@ Screen captures are performed natively using DirectX's Graphics Capture (for Win
 The shaders are loaded using Compushady library and computed on GPU. Display via Swapchain.
 Core of this project contains around 300 lines of Python codes plus external HLSL shader files.
 
-# Latest versions
+# Latest stable versions
 ## For Linux 
 https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/main/v08linux_nvfbc/g62nvfbc-direct.py
 ## For Windows 
