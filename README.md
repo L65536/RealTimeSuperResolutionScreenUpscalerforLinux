@@ -22,7 +22,7 @@ https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/mai
 https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/main/v07win/g43.py
 
 # Development and test system configurations
-- Windows 11 RTSC
+- Windows 11 LTSC
 - Python 3.12.xx
 - (Linux) PorteuX 2.3 (Slackware current based)
 - (Linux) Xfce 4.2 with X11
