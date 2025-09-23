@@ -16,7 +16,7 @@ The shaders are loaded using Compushady library and computed on GPU. Display via
 Core of this project contains around 300 lines of Python and C codes plus external HLSL shader files.
 
 # Latest stable versions
-## For Linux with Nvidia GPUs
+## For Linux (X11 only) with Nvidia GPUs
 https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/main/v08linux_nvfbc/g62nvfbc-direct.py
 ## For Windows 
 https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/main/v07win/g43.py
@@ -85,10 +85,11 @@ Alternative screen capture and display acceleration approaches are required.
   - [Limitation] NVFBC_BACKEND_X11 is for X11 only.
 - [Capture] Implemented NVFBC capture with DIRECT backend (NVFBC_BACKEND_DIRECT). This backend can capture occluded applications on both X11 and Wayland. This new capture backend API was just released in H2 2025.
   - [Limitation] Current capture API v1.9 only works with Vulkan programs, but not OpenGL programs. MangoHud could show which display library a program uses.
-  - [Limitation] This repo's implementation has only been tested on x11. Full Wayland support is work in progress.
+  - [Limitation] This repo's implementation has only been tested on x11.
   - [Requirement] Requires a Nvidia GPU with the latest driver. (tested on 580.xx)
   - [Requirement] nvidia-dbus.conf needs to be placed at /etc/dbus-1/system.d/, then reboot. (requires dbus only, not related to systemd)
-  
+- [Wayland support] Work in progress...
+    
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
 
