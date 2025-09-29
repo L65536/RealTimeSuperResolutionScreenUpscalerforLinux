@@ -1,4 +1,9 @@
 # WIP
+- [Wayland support] Work in progress...
+  - [Capture] NVFBC with NVFBC_BACKEND_DIRECT or NVFBC_BACKEND_PIPEWIRE
+  - [Display/window] wlroots/pywlroots with wlr-layer-shell-unstable-v1/set_keyboard_interactivity
+  - [Display/swapchain] compushady?
+
 - [Bug] Gracefully exit/clean up for compushady/capture/qt(pyside6).
 - [Shader] FP16 support
 - [Shader] Improve cascade shaders speed by elimiting unnecessary intermediate buffer I/O
