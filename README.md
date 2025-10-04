@@ -49,7 +49,7 @@ https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/mai
 Current background screen capture and display function overhead are magnitude slower than the core shader computations by GPUs.
 Alternative screen capture and display acceleration approaches are required.
 
-## Ver 0.2 for Windows and Linux
+## Ver 0.2 for Windows and Linux [pygame]
 - [Windows] New Windows support. The main python GUI script is now cross-platform.
 - [Windows] Capture support using win32gui.
 - [Windows/Linux] Use pygame(SDL) for faster GUI and display, instead of tkinter.
@@ -60,25 +60,25 @@ Alternative screen capture and display acceleration approaches are required.
 - [SHADER] Cascade shaders support.
 - [GUI] Improved full screen support with more consistant output layouts.
 
-##  Ver 0.4win Streamlined version for Windows 
+##  Ver 0.4win Streamlined version for Windows [D3D11 Graphic Capture]
 - [Windows] Caputure function now uses native Windows Graphic Capture Direct3D11CaptureFramePool calls implemented using pywinrt. This provides theoretically fastest capture speed and customizability on Windows 10+.
   
 ##  Ver 0.4linux Streamlined version for Linux 
 - [Linux] Improved capture processing speed (2x~3x) with xlib/ctypes.
 - [Linux] xshm Implementation/benchmark. (Work in Progress)
 
-##  Ver 0.5 Windows and Linux
+##  Ver 0.5 Windows and Linux [pyglet]
 - [GUI] Switched to Pyglet for GUI and display, instead of Pygame. This should provide more consistant full screen switching and faster display, especially on Linux.
 - Improved frame latency with concurrent thread/queue management for capture, compute and display.
 
-##  Ver 0.6 Windows and Linux
+##  Ver 0.6 Windows and Linux [Swapchain]
 - [Display] Implemented compushady's Swapchain display function. This eliminates display overhead and should increase FPS significantly.
 
-##  Ver 0.7 Windows and Linux
+##  Ver 0.7 Windows and Linux [Transparent window overlay]
 - [Display/UI] Implemented transparent window overlay mode and enabled keyboard/mouse passthrough.
 - [Windows/UI] Use [TAB] key to start/stop upscaling current active window.
 
-##  Ver 0.8 Linux only
+##  Ver 0.8 Linux only [NVFBC DIRECT capture for X11]
 - [Capture] Implemented NVFBC with X11 backend (NVFBC_BACKEND_X11) via ctypes. Much faster capture performance.
   - [Limitation] Requires a Nvidia GPU.
   - [Limitation] This particular backend only works with non-occluded windows. Only suitable for ultrawide screens.
@@ -88,8 +88,12 @@ Alternative screen capture and display acceleration approaches are required.
   - [Limitation] This repo's implementation has only been tested on x11.
   - [Requirement] Requires a Nvidia GPU with the latest driver. (tested on 580.xx)
   - [Requirement] nvidia-dbus.conf needs to be placed at /etc/dbus-1/system.d/, then reboot. (requires dbus only, not related to systemd)
-- [Wayland support] Work in progress...
-    
+##  Ver 0.9 Linux only [Wayland support] Work in progress...
+- [Capture] Implemented NVFBC with PipeWire backend (NVFBC_BACKEND_PIPEWIRE). This works well in conjunction with Virtual Screen of KDE Plasma Desktop, eliminating the need to handle window/overlay/mouse/cursor/UI elements.
+- [Display/wayland/pygame-ce] Works but very slow.
+- [Display/wayland/swapchain/pyglet/glfw] Work in progress...
+- [Display/native wayland protocol/pywayland] Work in progress...
+
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
 
