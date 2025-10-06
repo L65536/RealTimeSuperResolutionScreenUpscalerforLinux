@@ -37,9 +37,9 @@ https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/mai
 
 ## Ver 0.1 for Linux only
 - Real-time Linux window capture using xlib.
-- X2 upscaling of any runing window to a seperate window in Linux.
+- X2 upscaling of any running window to a seperate window in Linux.
 - [GUI] Thumbnailed source window selector at start up.
-- [GUI] OSD displays seperate times for capture/compute/display
+- [GUI] OSD displays separate times for capture/compute/display
 
 ## Ver 0.1 Limitations
 - No input passthrough support (need to run the original window side by side or with multi monitor setup).
@@ -58,17 +58,17 @@ Alternative screen capture and display acceleration approaches are required.
 
 ##  Ver 0.3 for Windows and Linux
 - [SHADER] Cascade shaders support.
-- [GUI] Improved full screen support with more consistant output layouts.
+- [GUI] Improved full screen support with more consistent output layouts.
 
 ##  Ver 0.4win Streamlined version for Windows [D3D11 Graphic Capture]
-- [Windows] Caputure function now uses native Windows Graphic Capture Direct3D11CaptureFramePool calls implemented using pywinrt. This provides theoretically fastest capture speed and customizability on Windows 10+.
+- [Windows] Capture function now uses native Windows Graphic Capture Direct3D11CaptureFramePool calls implemented using pywinrt. This provides theoretically fastest capture speed and customizability on Windows 10+.
   
 ##  Ver 0.4linux Streamlined version for Linux 
 - [Linux] Improved capture processing speed (2x~3x) with xlib/ctypes.
 - [Linux] xshm Implementation/benchmark. (Work in Progress)
 
 ##  Ver 0.5 Windows and Linux [pyglet]
-- [GUI] Switched to Pyglet for GUI and display, instead of Pygame. This should provide more consistant full screen switching and faster display, especially on Linux.
+- [GUI] Switched to Pyglet for GUI and display, instead of Pygame. This should provide more consistent full screen switching and faster display, especially on Linux.
 - Improved frame latency with concurrent thread/queue management for capture, compute and display.
 
 ##  Ver 0.6 Windows and Linux [Swapchain]
@@ -88,7 +88,7 @@ Alternative screen capture and display acceleration approaches are required.
   - [Limitation] This repo's implementation has only been tested on x11.
   - [Requirement] Requires a Nvidia GPU with the latest driver. (tested on 580.xx)
   - [Requirement] nvidia-dbus.conf needs to be placed at /etc/dbus-1/system.d/, then reboot. (requires dbus only, not related to systemd)
-##  Ver 0.9 Linux only [Wayland support] Work in progress...
+##  Ver 0.9 Linux only [Wayland support]
 - [Capture] Implemented NVFBC with PipeWire backend (NVFBC_BACKEND_PIPEWIRE). This works well in conjunction with Virtual Screen of KDE Plasma Desktop, eliminating the need to handle most window/overlay/mouse/cursor/UI elements, resulting much shorter codes.
 - [Display/wayland/pygame-ce] Works but very slow downloading from GPU.
 - [Display/wayland/swapchain/glfw] Works quite well with good latency.
@@ -98,14 +98,15 @@ Alternative screen capture and display acceleration approaches are required.
 - [Models] Implement/integrate other AI models with pytorch.
 
 # Acknowledgement and Special Thanks
-This project contains codes based on the following projectsa and libraries:
+This project contains codes based on the following projects and libraries:
 - https://github.com/Blinue/Magpie
 - https://github.com/funnyplanter/CuNNy
 - https://github.com/rdeioris/compushady
 - https://developer.nvidia.com/capture-sdk
 - https://github.com/LizardByte/Sunshine
-- https://github.com/pywinrt/pywinrt
+- https://www.glfw.org/
 - https://pypi.org/project/PySide6/
+- https://github.com/pywinrt/pywinrt
 - https://shallowsky.com/blog/programming/click-thru-translucent-update.html
   
 - For old versions:
