@@ -16,7 +16,7 @@ The shaders are loaded using Compushady library and computed on GPU. Display via
 Core of this project contains around 300 lines of Python and C codes plus external HLSL shader files.
 
 # Latest stable versions
-## For KDE Plasma(wayland) with Nvidia GPUs
+## For Linux with KDE Plasma(wayland) and Nvidia GPUs
 https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/main/v09wayland/wayland63_kde_nvfbc_glfw_swapchain.py
 ## For Linux (X11) with Nvidia GPUs
 https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/main/v08linux_nvfbc/g62nvfbc-direct.py
