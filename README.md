@@ -24,8 +24,10 @@ https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/mai
 # Development and test system configurations
 - Windows 11 LTSC
 - Python 3.12.xx
-- (Linux) PorteuX 2.3 (Slackware current based)
-- (Linux) Xfce 4.2 with X11
+- (Linux/wayland) CachyOS [AUG 2025]
+- (Linux/wayland) KDE Plasma(wayland)
+- (Linux/X11) PorteuX 2.3 (Slackware current based)
+- (Linux/X11) Xfce 4.2 with X11
 - (Linux) NVIDIA Driver 580.82.09
 - (Linux) wine-10.15 (from PorteuX store)
 - (Linux) dxvk-2.7.1 for wine (from Github download), required for NVFBC direct capture.
@@ -89,9 +91,9 @@ Alternative screen capture and display acceleration approaches are required.
   - [Requirement] Requires a Nvidia GPU with the latest driver. (tested on 580.xx)
   - [Requirement] nvidia-dbus.conf needs to be placed at /etc/dbus-1/system.d/, then reboot. (requires dbus only, not related to systemd)
 ##  Ver 0.9 Linux only [Wayland support]
-- [Capture] Implemented NVFBC with PipeWire backend (NVFBC_BACKEND_PIPEWIRE). This works well in conjunction with Virtual Screen of KDE Plasma Desktop, eliminating the need to handle most window/overlay/mouse/cursor/UI elements, resulting much shorter codes.
-- [Display/wayland/pygame-ce] Works but very slow downloading from GPU.
-- [Display/wayland/swapchain/glfw] Works quite well with good latency.
+- [Capture] Implemented NVFBC with PipeWire backend (NVFBC_BACKEND_PIPEWIRE). Not limiting to vulkan app like the DIRECT backend. This works well in conjunction with Virtual Screen of KDE Plasma Desktop, eliminating the need to handle most window/overlay/mouse/cursor/UI elements, resulting much shorter codes.
+- [Display/wayland/pygame-ce] Works but very slow copying from GPU to CPU.
+- [Display/wayland/glfw/swapchain] Works quite well with good latency.
 - [GUI finalization] Work in progress...
 
 # Future plans
@@ -114,6 +116,5 @@ This project contains codes based on the following projects and libraries:
 - https://stackoverflow.com/questions/69645/take-a-screenshot-via-a-python-script-on-linux/16141058#16141058
 - https://pyglet.org/
 - https://www.pygame.org/
-- https://www.glfw.org/
 - https://github.com/BoboTiG/python-mss/issues/180
 
