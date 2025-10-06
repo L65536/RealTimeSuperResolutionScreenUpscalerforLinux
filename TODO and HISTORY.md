@@ -1,9 +1,9 @@
 # WIP
 - [Wayland support] Work in progress...
   - [Capture] NVFBC with NVFBC_BACKEND_DIRECT[dbus permission problem?] or NVFBC_BACKEND_PIPEWIRE[done]
-  - [Display/window] wlroots/pywlroots with wlr-layer-shell-unstable-v1/set_keyboard_interactivity => use virtual screen instead of overlay layers.
-  - [Display/swapchain] compushady swapchain for wayland?
-  - [Display/wayland protocol] dma-buf or direct GPU/VRAM transfer?
+  - [Display/window] wlroots/pywlroots with wlr-layer-shell-unstable-v1/set_keyboard_interactivity => use KDE Plamsa Desktop's virtual screen instead of overlay layers.
+  - [Display/swapchain] compushady swapchain for wayland [tested ok]
+  - [Display/wayland protocol] dma-buf or direct GPU/VRAM transfer => not needed now
 
 - [Bug] Gracefully exit/clean up for compushady/capture/qt(pyside6).
 - [Shader] FP16 support
