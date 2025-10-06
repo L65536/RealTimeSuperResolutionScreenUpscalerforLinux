@@ -16,7 +16,9 @@ The shaders are loaded using Compushady library and computed on GPU. Display via
 Core of this project contains around 300 lines of Python and C codes plus external HLSL shader files.
 
 # Latest stable versions
-## For Linux (X11 only) with Nvidia GPUs
+## For KDE Plasma(wayland) with Nvidia GPUs
+https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/main/v09wayland/wayland63_kde_nvfbc_glfw_swapchain.py
+## For Linux (X11) with Nvidia GPUs
 https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/main/v08linux_nvfbc/g62nvfbc-direct.py
 ## For Windows 
 https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/main/v07win/g43.py
@@ -94,7 +96,6 @@ Alternative screen capture and display acceleration approaches are required.
 - [Capture] Implemented NVFBC with PipeWire backend (NVFBC_BACKEND_PIPEWIRE). Not limiting to vulkan app like the DIRECT backend. This works well in conjunction with Virtual Screen of KDE Plasma Desktop, eliminating the need to handle most window/overlay/mouse/cursor/UI elements, resulting much shorter codes.
 - [Display/wayland/pygame-ce] Works but very slow copying from GPU to CPU.
 - [Display/wayland/glfw/swapchain] Works quite well with good latency.
-- [GUI finalization] Work in progress...
 
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
