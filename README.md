@@ -89,10 +89,10 @@ Alternative screen capture and display acceleration approaches are required.
   - [Requirement] Requires a Nvidia GPU with the latest driver. (tested on 580.xx)
   - [Requirement] nvidia-dbus.conf needs to be placed at /etc/dbus-1/system.d/, then reboot. (requires dbus only, not related to systemd)
 ##  Ver 0.9 Linux only [Wayland support] Work in progress...
-- [Capture] Implemented NVFBC with PipeWire backend (NVFBC_BACKEND_PIPEWIRE). This works well in conjunction with Virtual Screen of KDE Plasma Desktop, eliminating the need to handle window/overlay/mouse/cursor/UI elements.
-- [Display/wayland/pygame-ce] Works but very slow.
-- [Display/wayland/swapchain/pyglet/glfw] Work in progress...
-- [Display/native wayland protocol/pywayland] Work in progress...
+- [Capture] Implemented NVFBC with PipeWire backend (NVFBC_BACKEND_PIPEWIRE). This works well in conjunction with Virtual Screen of KDE Plasma Desktop, eliminating the need to handle most window/overlay/mouse/cursor/UI elements, resulting much shorter codes.
+- [Display/wayland/pygame-ce] Works but very slow downloading from GPU.
+- [Display/wayland/swapchain/glfw] Works quite well with good latency.
+- [GUI finalization] Work in progress...
 
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
