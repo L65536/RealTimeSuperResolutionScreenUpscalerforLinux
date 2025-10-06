@@ -23,14 +23,14 @@ https://github.com/L65536/RealTimeSuperResolutionScreenUpscalerforLinux/blob/mai
 
 # Development and test system configurations
 - Windows 11 LTSC
-- Python 3.12.xx
-- (Linux/wayland) CachyOS [AUG 2025]
-- (Linux/wayland) KDE Plasma(wayland)
+- Python 3.12 3.13
+- (Linux/wayland) CachyOS Linux (Arch Linux based) [AUG 2025]
+- (Linux/wayland) KDE Plasma(wayland) 6.4.5
 - (Linux/X11) PorteuX 2.3 (Slackware current based)
 - (Linux/X11) Xfce 4.2 with X11
-- (Linux) NVIDIA Driver 580.82.09
-- (Linux) wine-10.15 (from PorteuX store)
-- (Linux) dxvk-2.7.1 for wine (from Github download), required for NVFBC direct capture.
+- (Linux) NVIDIA Driver 580.82.09 580.95.05
+- (Linux/wine) wine-10.15 (from PorteuX store)
+- (Linux/wine) dxvk-2.7.1 (from Github download), required for v0.8 only (NVFBC direct capture).
 
 # Version History
 ## Ver 0.0 for Windows and Linux
