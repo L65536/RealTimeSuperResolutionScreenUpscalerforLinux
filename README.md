@@ -98,8 +98,8 @@ Alternative screen capture and display acceleration approaches are required.
 - [Display/wayland/glfw/swapchain] Works quite well with good latency.
 
 ##  Ver 0.x [More Magpie HLSL shader support] Work in progress...
-- [ ] FP16 support using min16float
-- [ ] Parse MagpieFX HLSL shader parameters, translate to compushady commands automatically.
+- [ ] FP16 support with min16float
+- [ ] Parse MagpieFX HLSL shader parameters, translate to compushady commands programatically.
 
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
