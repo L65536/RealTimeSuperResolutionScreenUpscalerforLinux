@@ -6,19 +6,49 @@ with open(shader, 'r') as fp: s = fp.read()
 lines = s.splitlines()
 total = len(lines)
 
-for index, item in enumerate(lines):    
-    if "Texture2D" in item: print(f"{index}/{total} {item}")
-    if "//!FORMAT" in item: print(f"{index}/{total} {item}")
-    if "//!HEIGHT" in item: print(f"{index}/{total} {item}")
-    if "//!WIDTH" in item: print(f"{index}/{total} {item}")
-    if "//!TEXTURE" in item: print(f"{index}/{total} {item}")
+for index, line in enumerate(lines):  
     
-    if "//!PASS" in item: print(f"{index}/{total} {item}")
-    if "//!BLOCK_SIZE" in item: print(f"{index}/{total} {item}")
-    if "//!NUM_THREADS" in item: print(f"{index}/{total} {item}")
-    if "//!IN" in item: print(f"{index}/{total} {item}")
-    if "//!OUT" in item: print(f"{index}/{total} {item}")
-    
+    T=[]
+    if "Texture2D T" in line: 
+        print(f"{index}/{total} {line}")
+        line = line.replace("Texture2D T", "")
+        line = line.replace(";", "")
+        i = int(line)
+        print(i)
+           
+    if "//!WIDTH" in line: 
+        print(f"{index}/{total} {line}")
+        line = line.replace("//!WIDTH INPUT_WIDTH", "")
+        i = len(line)
+        print(i,line)
+        
+    elif "//!HEIGHT" in line: 
+        print(f"{index}/{total} {line}")
+        line = line.replace("//!HEIGHT INPUT_HEIGHT", "")        
+        i = len(line)
+        print(i,line)                    
+        
+    elif "//!PASS" in line: 
+        print(f"{index}/{total} {line}")
+        line = line.replace("//!PASS", "")        
+        i = int(line)
+        print(i)
+        
+    elif "//!BLOCK_SIZE" in line: 
+        print(f"{index}/{total} {line}")
+        line = line.replace("//!BLOCK_SIZE", "")     
+        i = int(line)
+        print(i)    
+            
+    if "//!IN" in line: 
+        print(f"{index}/{total} {line}")
+        line = line.replace("//!IN", "").replace(" ", "").split(',')    
+        print(line)    
+        
+    if "//!OUT" in line: 
+        print(f"{index}/{total} {line}")
+        line = line.replace("//!OUT", "").replace(" ", "").split(',')      
+        print(line)    
 """        
 //!TEXTURE
 //!WIDTH INPUT_WIDTH
@@ -33,3 +63,7 @@ Texture2D T3;
 //!IN INPUT
 //!OUT T0, T1
 """
+
+#if "//!TEXTURE" in line: print(f"{index}/{total} {line}")
+#if "//!FORMAT" in line: print(f"{index}/{total} {line}")
+#if "//!NUM_THREADS" in line: print(f"{index}/{total} {line}")
