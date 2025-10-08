@@ -10,8 +10,8 @@ This project uses the HLSL shader files taken straight from the Magpie/CuNNy pro
 A fast CNN model called CuNNy-veryfast-NVL is used (It's Similar to Anime4k).
 This model provides good balance of text and graphic upscaling quality and speed.
 
-Screen captures are performed natively using DirectX's Graphics Capture (for Windows) and NVFBC direct backend (for Linux) for the best latency performance.
-The shaders are loaded using Compushady library and computed on GPU. Display via Swapchain.
+Screen captures are performed natively using DirectX's Graphics Capture (for Windows) and NVFBC direct/pipewire backends (for Linux X11/wayland) for the best latency performance.
+The shaders are loaded using Compushady library and computed on GPU. Display directly via Swapchain.
 
 Core of this project contains around 300 lines of Python and C codes plus external HLSL shader files.
 
@@ -96,6 +96,10 @@ Alternative screen capture and display acceleration approaches are required.
 - [Capture] Implemented NVFBC with PipeWire backend (NVFBC_BACKEND_PIPEWIRE). Not limiting to vulkan app like the DIRECT backend. This works well in conjunction with Virtual Screen of KDE Plasma Desktop, eliminating the need to handle most window/overlay/mouse/cursor/UI elements, resulting much shorter codes.
 - [Display/wayland/pygame-ce] Works but very slow copying from GPU to CPU.
 - [Display/wayland/glfw/swapchain] Works quite well with good latency.
+
+##  Ver 0.x [More Magpie HLSL shader support] Work in progress...
+- [ ] FP16 support using min16float
+- [ ] Parse MagpieFX HLSL shader parameters, translate to compushady commands automatically.
 
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
