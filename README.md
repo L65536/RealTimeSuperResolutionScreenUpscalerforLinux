@@ -99,7 +99,7 @@ Alternative screen capture and display acceleration approaches are required.
 
 ##  Ver 0.x [More Magpie HLSL shader support] Work in progress...
 - [ ] FP16 support with min16float
-- [ ] Parse MagpieFX HLSL shader parameters, translate to compushady commands programatically.
+- [ ] Parse MagpieFX HLSL shader parameters, translate to compushady commands programmatically.
 
 # Future plans
 - [Models] Implement/integrate other AI models with pytorch.
