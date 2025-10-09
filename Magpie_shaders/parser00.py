@@ -13,12 +13,12 @@ import compushady.formats
 import compushady.shaders.hlsl
 
 class magpie_shader:
-    def __init__(self, shader):
-        self.parse(shader)
+    def __init__(self, shader_file):
+        self.parse(shader_file)
 
-    def parse(self, shader, verbose=1):
-        print('Parsing shader file =', shader)
-        with open(shader, 'r') as fp: file = fp.read()
+    def parse(self, shader_file, verbose=1):
+        print('Parsing shader file =', shader_file)
+        with open(shader_file, 'r') as fp: file = fp.read()
         lines = file.splitlines()
         # total = len(lines)
         # print(f"{index}/{total} {line}")
@@ -34,8 +34,7 @@ class magpie_shader:
         for index, line in enumerate(lines):
 
             if "Texture2D T" in line:
-                line = line.replace("Texture2D T", "")
-                line = line.replace(";", "")
+                line = line.replace("Texture2D T", "").replace(";", "")
                 i = int(line)
                 if verbose: print(f"T{i} ratio = {wr}x{hr} {format}")
                 self.parsed_T_ratio.append((wr,hr))
@@ -65,7 +64,7 @@ class magpie_shader:
             elif "//!BLOCK_SIZE" in line:
                 line = line.replace("//!BLOCK_SIZE", "")
                 i = int(line)
-                if verbose: print('PASS', pass_max, 'BLOCK_SIZE',i)
+                if verbose: print('PASS', pass_max, 'BLOCK_SIZE', i)
                 self.parsed_BLOCK_SIZE.append(i)
 
             elif "//!IN" in line:
