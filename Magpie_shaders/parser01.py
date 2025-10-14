@@ -15,22 +15,21 @@ import compushady.shaders.hlsl
 
 class magpie_shader:
     def __init__(self, shader_file):
-        self.parse(shader_file)
+        self.parse(shader_file, verbose=1)
+        self.generate(shader_file, verbose=1)
 
-    def parse(self, shader_file, verbose=1, vv=1):
+    def parse(self, shader_file, verbose=0):
         print('Parsing shader file =', shader_file)
         with open(shader_file, 'r') as fp: file = fp.read()
         lines = file.splitlines()
-        # total = len(lines)
-        # print(f"{index}/{total} {line}")
 
-        self.parsed_T_ratio = [] # intermediate textures T ratio (w, h), always 1x1
-        self.parsed_BLOCK_SIZE = [] # always [8 ... 8, 16]
-        self.parsed_NUM_THREADS = [] # always 64
+        self.parsed_T_ratio = [] # Intermediate textures T ratio (w, h). Assume always 1x1
+        self.parsed_BLOCK_SIZE = [] # Assume always [8 ... 8, 16]
+        self.parsed_NUM_THREADS = [] # Assume always 64
         self.parsed_IN = []
         self.parsed_OUT = []
         self.pass_max = 0
-        start_point = []
+        self.start_point = []
         wr = 0  # texture width ratio, redundant for error checks
         hr = 0  # texture width ratio, redundant for error checks
         format = 'None'
@@ -64,7 +63,7 @@ class magpie_shader:
             elif "//!PASS" in line:
                 line = line.replace("//!PASS", "")
                 self.pass_max = int(line)
-                start_point.append(index)
+                self.start_point.append(index)
 
             elif "//!BLOCK_SIZE" in line:
                 line = line.replace("//!BLOCK_SIZE", "")
@@ -94,27 +93,32 @@ class magpie_shader:
             print(self.parsed_NUM_THREADS)
             print(self.parsed_IN)
             print(self.parsed_OUT)
-            print(start_point, '/', len(lines))
+            print(self.start_point, '/', len(lines))
             print('Total passes =', self.pass_max, '\n')
 
+    def generate(self, shader_file, verbose=0):        
+        print('Generating individual shader passes.')
+        with open(shader_file, 'r') as fp: file = fp.read()
+        lines = file.splitlines()
+    
         # Extract individual HLSL passes
         pass_body = []
         body = ""
         current_pass = 0
-        start_point.append(len(lines))
+        self.start_point.append(len(lines))
         for index, line in enumerate(lines):
             # print (index, len(lines), start_point[current_pass+1]-1, current_pass)
-            if start_point[current_pass] <= index < start_point[current_pass+1]:
+            if self.start_point[current_pass] <= index < self.start_point[current_pass+1]:
                 body = body + line + "\n"
-            if index == start_point[current_pass+1]-1:
+            if index == self.start_point[current_pass+1]-1:
                 pass_body.append(body)
                 body = ""
                 if current_pass < self.pass_max: current_pass+=1
 
-        # macros.hlsl read from file
+        # Read macros from file
         with open("macros.hlsl", 'r') as fp: macros = fp.read() #print(macros)
 
-        # Generate individual HLSL texture and entry function definition
+        # Generate individual HLSL textures definitions
         header_textures = []
         for i in range(self.pass_max):
             n = 0
@@ -137,17 +141,19 @@ class magpie_shader:
                 n+=1
             header_textures.append(tt)
 
+        # Generate entry functions definitions
         footer_main = []
         f1 = "[numthreads(64, 1, 1)]\n"
         f2 = "void __M(uint3 tid : SV_GroupThreadID, uint3 gid : SV_GroupID) {Pass"
         f3 = "((gid.xy << 3), tid);}\n"
         for i in range(self.pass_max): footer_main.append(f1+f2+str(i+1)+f3) #print(footer_main)
 
+        # Combine all elements
         self.shader_passes_hlsl = []
         for i in range(self.pass_max):
             self.shader_passes_hlsl.append(header_textures[i]+macros+pass_body[i]+footer_main[i])
 
-        if (vv):
+        if (verbose):
             for i in range(self.pass_max):
                 print("=======================")
                 print(self.shader_passes_hlsl[i])

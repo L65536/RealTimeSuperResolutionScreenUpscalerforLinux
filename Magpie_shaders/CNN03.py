@@ -4,7 +4,7 @@
 # https://github.com/Blinue/Magpie/wiki/MagpieFX%20(EN)
 
 # Only tested on three CuNNy2 shaders
-# [Assumptions] Output ratio is 2x2, NUM_THREADS handled in HLSL, FORMAT is R8G8B8A8_UNORM
+# [Assumptions] Output ratio is 2x2, NUM_THREADS handled in HLSL, FORMAT is R8G8B8A8_UNORM(FP32)/...(FP16)
 
 import struct
 import compushady
@@ -13,21 +13,21 @@ import compushady.shaders.hlsl
 
 class magpie_shader:
     def __init__(self, shader_file):
-        self.parse(shader_file)
         self.shader_file = shader_file
+        self.parse(shader_file, verbose=0)
+        self.generate(shader_file, verbose=0)
 
     def parse(self, shader_file, verbose=0):
         print('Parsing shader file =', shader_file)
         with open(shader_file, 'r') as fp: file = fp.read()
         lines = file.splitlines()
-        # total = len(lines)
-        # print(f"{index}/{total} {line}")
 
-        self.parsed_T_ratio = [] # intermediate textures T ratio (w, h)
-        self.parsed_BLOCK_SIZE = []
-        self.parsed_NUM_THREADS = []
+        self.parsed_T_ratio = [] # Intermediate textures T ratio (w, h). Assume always 1x1
+        self.parsed_BLOCK_SIZE = [] # Assume always [8 ... 8, 16]
+        self.parsed_NUM_THREADS = [] # Assume always 64
         self.parsed_IN = []
         self.parsed_OUT = []
+        self.start_point = []
         wr = 0  # texture width ratio, redundant for error checks
         hr = 0  # texture width ratio, redundant for error checks
         format = 'None'
@@ -61,6 +61,7 @@ class magpie_shader:
             elif "//!PASS" in line:
                 line = line.replace("//!PASS", "")
                 self.pass_max = int(line)
+                self.start_point.append(index)
 
             elif "//!BLOCK_SIZE" in line:
                 line = line.replace("//!BLOCK_SIZE", "")
@@ -90,6 +91,68 @@ class magpie_shader:
             print(self.parsed_IN)
             print(self.parsed_OUT)
             print('Total passes =', self.pass_max, '\n')
+
+    def generate(self, shader_file, verbose=0):
+        print('Generating individual shader passes.')
+        with open(shader_file, 'r') as fp: file = fp.read()
+        lines = file.splitlines()
+
+        # Extract individual HLSL passes
+        pass_body = []
+        body = ""
+        current_pass = 0
+        self.start_point.append(len(lines))
+        for index, line in enumerate(lines):
+            # print (index, len(lines), start_point[current_pass+1]-1, current_pass)
+            if self.start_point[current_pass] <= index < self.start_point[current_pass+1]:
+                body = body + line + "\n"
+            if index == self.start_point[current_pass+1]-1:
+                pass_body.append(body)
+                body = ""
+                if current_pass < self.pass_max: current_pass+=1
+
+        # Read macros from file
+        with open("macros.hlsl", 'r') as fp: macros = fp.read() #print(macros)
+
+        # Generate individual HLSL textures definitions
+        header_textures = []
+        for i in range(self.pass_max):
+            n = 0
+            tt = ""
+            for s in self.parsed_IN[i]:
+                if s == 'INPUT':
+                    tt += f"Texture2D<MF4> INPUT : register(t{n});\n"
+                else:
+                    t = int(s.replace("T", ""))
+                    tt += f"Texture2D<MF4> T{t} : register(t{n});\n"
+                n+=1
+
+            n = 0
+            for s in self.parsed_OUT[i]:
+                if s == 'OUTPUT':
+                    tt += f"RWTexture2D<unorm MF4> OUTPUT : register(u{n});\n"
+                else:
+                    t = int(s.replace("T", ""))
+                    tt += f"RWTexture2D<unorm MF4> T{t} : register(u{n});\n"
+                n+=1
+            header_textures.append(tt)
+
+        # Generate entry functions definitions
+        footer_main = []
+        f1 = "[numthreads(64, 1, 1)]\n"
+        f2 = "void __M(uint3 tid : SV_GroupThreadID, uint3 gid : SV_GroupID) {Pass"
+        f3 = "((gid.xy << 3), tid);}\n"
+        for i in range(self.pass_max): footer_main.append(f1+f2+str(i+1)+f3) #print(footer_main)
+
+        # Combine all elements
+        self.shader_passes_hlsl = []
+        for i in range(self.pass_max):
+            self.shader_passes_hlsl.append(header_textures[i]+macros+pass_body[i]+footer_main[i])
+
+        if (verbose):
+            for i in range(self.pass_max):
+                print("=======================")
+                print(self.shader_passes_hlsl[i])
 
     def init(self, w, h, verbose=0):
         self.w = w
@@ -181,20 +244,24 @@ class magpie_shader:
     def download(self):
         self.OUTPUT.copy_to(self.readback_buffer)
 
-# Compare shaders: load multiple shaders and click to loop title/display within single window
 if __name__ == "__main__":
+    print("Comparing shaders results: load multiple shaders and click to loop title/images within single window.")
+    print("Close all existing terminal windows first for accurate results.")
+    print("Reference time on an entry level GPU = 16 16 22 ms")
+    print("Require a 'test.jpg' in the same folder.\n")
+    file = "test.jpg"
+
     from PIL import Image
     import time
     import numpy
 
-    image = Image.open("test.jpg").convert("RGBA")
+    image = Image.open(file).convert("RGBA")
     h, w = image.height, image.width
     img_data = numpy.array(image)
 
     DISPLAY = 1
     if(DISPLAY):
         import pyglet
-        
 
     shader = []
     shader.append(magpie_shader("CuNNy-veryfast-NVL.hlsl"))
@@ -204,13 +271,12 @@ if __name__ == "__main__":
 
     img = []
     title = []
-    print("Close all terminal windows first for accurate results. REF 18 16 23 ms")
     for s in shader:
         s.init(w, h)
         s.upload(img_data)
-        
+
         t = time.perf_counter()
-        s.compute()        
+        s.compute()
         t=(time.perf_counter() - t)*1000
         print(f"{t:.2f} ms")
 
@@ -221,7 +287,7 @@ if __name__ == "__main__":
             title.append(s.shader_file)
 
     if(DISPLAY):
-        print("\nClick on window to cycle through all images.\n")
+        print("\nClick on the window to cycle through all different images.\n")
         window = pyglet.window.Window(w*2,h*2, caption='Display')
         i = 0
 
@@ -234,6 +300,6 @@ if __name__ == "__main__":
         def on_mouse_press(x, y, button, modifiers):
             global i
             i = i + 1
-            if i == len(img): i = 0            
+            if i == len(img): i = 0
 
         pyglet.app.run(1/30)
