@@ -3,10 +3,10 @@
 # Parse MagpieFX shader directives
 # https://github.com/Blinue/Magpie/wiki/MagpieFX%20(EN)
 
+# Generate compilable HLSL codes for individual passes locally without relying on Magpie's EffectCompiler.cpp
+
 # Only tested on three CuNNy2 shaders
 # [Assumptions] Output ratio is 2x2, intermediate texture ratio is 1x1, NUM_THREADS handled in HLSL, FORMAT is R8G8B8A8_UNORM(FP32)/...(FP16)
-# Still rely on Magpie's EffectCompiler.cpp to generate HLSL codes for individual passes externally.
-# => extract passes[v] texture def[] numthreads[] macros[]
 
 import struct
 import compushady

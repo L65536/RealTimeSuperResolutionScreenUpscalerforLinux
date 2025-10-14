@@ -6,9 +6,6 @@
 # Only tested on three CuNNy2 shaders
 # [Assumptions] Output ratio is 2x2, NUM_THREADS handled in HLSL, FORMAT is R8G8B8A8_UNORM
 
-# Still rely on Magpie's EffectCompiler.cpp to generate HLSL codes for individual passes externally.
-# => extract pass[] macros[] texture def[] numthreads[]
-
 import struct
 import compushady
 import compushady.formats
