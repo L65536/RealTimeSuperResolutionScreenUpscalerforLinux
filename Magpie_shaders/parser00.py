@@ -4,7 +4,7 @@
 # https://github.com/Blinue/Magpie/wiki/MagpieFX%20(EN)
 
 # Only tested on three CuNNy2 shaders
-# [Assumptions] Output ratio is 2x2, NUM_THREADS handled in HLSL, FORMAT is R8G8B8A8_UNORM
+# [Assumptions] Output ratio is 2x2, intermediate texture ratio is 1x1, NUM_THREADS handled in HLSL, FORMAT is R8G8B8A8_UNORM(FP32)/...(FP16)
 # Still rely on Magpie's EffectCompiler.cpp to generate HLSL codes for individual passes externally.
 
 import struct
@@ -23,10 +23,11 @@ class magpie_shader:
         # total = len(lines)
         # print(f"{index}/{total} {line}")
 
-        self.parsed_T_ratio = [] # intermediate textures T ratio (w, h)
-        self.parsed_BLOCK_SIZE = []
+        self.parsed_T_ratio = [] # intermediate textures T ratio (w, h), always 1x1
+        self.parsed_BLOCK_SIZE = [] # always [8 ... 8, 16]
+        self.parsed_NUM_THREADS = [] # always 64
         self.parsed_IN = []
-        self.parsed_OUT = []
+        self.parsed_OUT = []        
         wr = 0  # texture width ratio, redundant for error checks
         hr = 0  # texture width ratio, redundant for error checks
         format = 'None'
@@ -66,6 +67,12 @@ class magpie_shader:
                 i = int(line)
                 if verbose: print('PASS', pass_max, 'BLOCK_SIZE', i)
                 self.parsed_BLOCK_SIZE.append(i)
+                
+            elif "//!NUM_THREADS" in line:
+                line = line.replace("//!NUM_THREADS", "")
+                i = int(line)
+                if verbose: print('PASS', pass_max, 'NUM_THREADS', i)
+                self.parsed_NUM_THREADS.append(i)                
 
             elif "//!IN" in line:
                 line = line.replace("//!IN", "").replace(" ", "").split(',')
@@ -80,11 +87,20 @@ class magpie_shader:
         if verbose: 
             print(self.parsed_T_ratio)
             print(self.parsed_BLOCK_SIZE)
+            print(self.parsed_NUM_THREADS)
             print(self.parsed_IN)
-            print(self.parsed_OUT)
+            print(self.parsed_OUT)            
             print('Total passes =', pass_max, '\n')
 
 if __name__ == "__main__":
     s1 = magpie_shader("CuNNy-veryfast-NVL.hlsl")
     s2 = magpie_shader("CuNNy-faster-NVL.hlsl")
     s3 = magpie_shader("CuNNy-fast-NVL.hlsl")
+    s4 = magpie_shader("CuNNy-3x12-NVL.hlsl")
+    s5 = magpie_shader("CuNNy-4x12-NVL.hlsl")
+    s6 = magpie_shader("CuNNy-4x16-NVL.hlsl")
+    s7 = magpie_shader("CuNNy-4x24-NVL.hlsl")
+    s8 = magpie_shader("CuNNy-4x32-NVL.hlsl")
+    s9 = magpie_shader("CuNNy-8x32-NVL.hlsl")
+    
+    
