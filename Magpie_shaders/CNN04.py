@@ -180,12 +180,10 @@ class magpie_shader:
         self.shader = []
         for i in range(self.pass_max):
             # Use this for separate shader_passN.hlsl files.
-            s = self.shader_file.replace(".hlsl", "")
-            pass_filename = f"{s}_Pass{i+1}.hlsl"
-            with open(pass_filename, 'r') as fp: pass_file = fp.read()
-
-            # Use this for self parsed individual passes.
-            # pass_file = self.shader_passes_hlsl[i]
+            #s = self.shader_file.replace(".hlsl", "")
+            #pass_filename = f"{s}_Pass{i+1}.hlsl"
+            #with open(pass_filename, 'r') as fp: pass_file = fp.read()
+            pass_file = self.shader_passes_hlsl[i]
 
             s = compushady.shaders.hlsl.compile(fp1632+pass_file, entry_point="__M")
             self.shader.append(s)
@@ -240,7 +238,11 @@ class magpie_shader:
             ####### move this to init section?
             compute = compushady.Compute(self.shader[i], cbv=[self.CB[i]], srv=self.SRV[i], uav=self.UAV[i], samplers=[self.SP,self.SL])
 
-            n = self.parsed_BLOCK_SIZE[i]            
+            ### ??? BUG
+            n = self.parsed_BLOCK_SIZE[i]
+            # print(n)
+            n = 8 # temp fix
+
             if i == self.pass_max-1:
                 compute.dispatch((self.w*2+n-1)//n, (self.h*2+n-1)//n, 1) # (OUPUT_size+block_size-1)//block_size
             else:
@@ -252,9 +254,12 @@ class magpie_shader:
 if __name__ == "__main__":
     print("Comparing shaders results: load multiple shaders and click to loop title/images within single window.")
     print("Close all existing terminal windows first for accurate results.")
-    print("Reference time on an entry level GPU (Pascal) = 16 16 22 ms for FP32")
+    print("Reference time on an entry level GPU (Pascal) = 16 16 22 45 52 89 205 474 788 ms for 720p FP32")
+    print("Reference time on an entry level GPU (Pascal) = 22 25 34 69 80 141 341 639 1249 ms for 1080p FP32")
     print("Require a 'test.jpg' in the same folder.\n")
     file = "test.jpg"
+    file = "test720.jpg"
+    file = "test1080.jpg"
 
     from PIL import Image
     import time
@@ -272,6 +277,12 @@ if __name__ == "__main__":
     shader.append(magpie_shader("CuNNy-veryfast-NVL.hlsl"))
     shader.append(magpie_shader("CuNNy-faster-NVL.hlsl"))
     shader.append(magpie_shader("CuNNy-fast-NVL.hlsl"))
+    shader.append(magpie_shader("CuNNy-3x12-NVL.hlsl"))
+    shader.append(magpie_shader("CuNNy-4x12-NVL.hlsl"))
+    shader.append(magpie_shader("CuNNy-4x16-NVL.hlsl"))
+    shader.append(magpie_shader("CuNNy-4x24-NVL.hlsl"))
+    shader.append(magpie_shader("CuNNy-4x32-NVL.hlsl"))
+    shader.append(magpie_shader("CuNNy-8x32-NVL.hlsl"))
     print()
 
     img = []
